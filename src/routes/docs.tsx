@@ -185,21 +185,49 @@ function Docs() {
               SafeWA documentation
             </h1>
             <p className="mt-4 max-w-xl text-muted-foreground">
-              Everything you need to link a WhatsApp number, send any message type through one
-              endpoint, and switch on AI auto-replies.
+              এই পেজে ধাপে ধাপে দেখানো হয়েছে কীভাবে আপনার WhatsApp নম্বর কানেক্ট করে মেসেজ পাঠাবেন
+              এবং AI auto-reply চালু করবেন — সব একটাই API দিয়ে।
             </p>
           </div>
 
-          <Section id="quickstart" kicker="Start here" title="Quickstart">
+          {/* plain-language glossary */}
+          <div className="grid gap-4 sm:grid-cols-3">
+            {[
+              {
+                icon: KeyRound,
+                term: "API key",
+                desc: "আপনার অ্যাকাউন্টের পাসওয়ার্ডের মতো একটা গোপন কোড। প্রতিটা request-এর সাথে এটা পাঠাতে হয়, যাতে SafeWA বোঝে আপনিই কল করছেন।",
+              },
+              {
+                icon: QrCode,
+                term: "Session",
+                desc: "একটা session মানে একটা WhatsApp নম্বর কানেক্ট করা। QR স্ক্যান করলেই session চালু হয়ে যায় — ঠিক WhatsApp Web-এর মতো।",
+              },
+              {
+                icon: BellRing,
+                term: "Webhook",
+                desc: "আপনার সার্ভারের একটা URL। কেউ আপনাকে WhatsApp-এ মেসেজ দিলে SafeWA সেই URL-এ খবর পাঠিয়ে দেয়।",
+              },
+            ].map((g) => (
+              <div key={g.term} className="glass-card rounded-xl p-4">
+                <p className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                  <g.icon className="size-4 text-primary" /> {g.term}
+                </p>
+                <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{g.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <Section id="quickstart" kicker="Start here" title="Quickstart — ৩ ধাপে শুরু করুন">
             <p>
-              Three steps and your first message is out the door. Create an API key in the
-              dashboard, link a session by scanning a QR code, then POST your first message.
+              মাত্র ৩টা কাজ করলেই আপনার প্রথম মেসেজ চলে যাবে। কোনো জটিল সেটআপ নেই — নিচের ধাপগুলো
+              একে একে ফলো করুন:
             </p>
             <ol className="grid gap-4 sm:grid-cols-3">
               {[
-                ["01", "Create an API key", "Dashboard → Settings → API keys → New key."],
-                ["02", "Link a session", "POST /v1/sessions and scan the returned QR from WhatsApp."],
-                ["03", "Send a message", "POST /v1/messages with the session name and recipient."],
+                ["01", "API key বানান", "Dashboard-এ গিয়ে Settings → API keys → New key চাপুন। কপি করে রাখুন।"],
+                ["02", "WhatsApp কানেক্ট করুন", "POST /v1/sessions কল করুন, QR কোড পাবেন — ফোন থেকে স্ক্যান করুন।"],
+                ["03", "মেসেজ পাঠান", "POST /v1/messages-এ session-এর নাম আর প্রাপকের নম্বর দিন। ব্যস!"],
               ].map(([n, t, b]) => (
                 <li key={n} className="glass-card rounded-xl p-4">
                   <p className="font-mono text-xs text-muted-foreground">{n}</p>
