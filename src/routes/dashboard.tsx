@@ -275,7 +275,9 @@ function Overview() {
   );
 }
 
-function SessionTable() {
+type Session = { name: string; number: string; status: string; msgs: string };
+
+function SessionTable({ rows = sessions }: { rows?: Session[] }) {
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-left text-sm">
@@ -288,7 +290,7 @@ function SessionTable() {
           </tr>
         </thead>
         <tbody>
-          {sessions.map((s) => (
+          {rows.map((s) => (
             <tr key={s.name} className="border-t border-border/60">
               <td className="py-3 font-mono text-xs">{s.name}</td>
               <td className="py-3 text-muted-foreground">{s.number}</td>
@@ -304,32 +306,188 @@ function SessionTable() {
   );
 }
 
-function Sessions() {
+function QrPattern({ seed }: { seed: string }) {
+  const size = 25;
+  let h = 0;
+  for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) >>> 0;
+  const cells: boolean[] = [];
+  for (let i = 0; i < size * size; i++) {
+    h = (h * 1103515245 + 12345) >>> 0;
+    cells.push(((h >> 16) & 1) === 1);
+  }
+  const isFinder = (r: number, c: number) => {
+    const inBox = (r0: number, c0: number) =>
+      r >= r0 && r < r0 + 7 && c >= c0 && c < c0 + 7;
+    return inBox(0, 0) || inBox(0, size - 7) || inBox(size - 7, 0);
+  };
+  const finderOn = (r: number, c: number) => {
+    const rr = r < 7 ? r : r - (size - 7);
+    const cc = c < 7 ? c : c - (size - 7);
+    const ring = Math.max(Math.abs(rr - 3), Math.abs(cc - 3));
+    return ring !== 2 && ring !== 4;
+  };
   return (
-    <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
-      <Card
-        title="All sessions"
-        action={
-          <button className="glow-ring rounded-full bg-primary px-3.5 py-1.5 text-xs font-semibold text-primary-foreground">
-            New session
-          </button>
-        }
-      >
-        <SessionTable />
-      </Card>
-      <Card title="Connect a device">
-        <div className="grid place-items-center rounded-2xl border border-dashed border-border p-8">
-          <QrCode className="size-24 text-primary" />
-        </div>
-        <ol className="mt-4 space-y-2 text-xs text-muted-foreground">
-          <li>1. Open WhatsApp on your phone.</li>
-          <li>2. Go to Settings → Linked devices.</li>
-          <li>3. Scan this QR code to link the session.</li>
-        </ol>
-      </Card>
+    <div
+      className="grid rounded-xl bg-white p-3"
+      style={{ gridTemplateColumns: `repeat(${size}, 1fr)`, width: 220, height: 220 }}
+    >
+      {cells.map((on, i) => {
+        const r = Math.floor(i / size);
+        const c = i % size;
+        const dark = isFinder(r, c) ? finderOn(r, c) : on;
+        return <span key={i} className={dark ? "bg-[#0b141a]" : "bg-white"} />;
+      })}
     </div>
   );
 }
+
+function Sessions() {
+  const [rows, setRows] = useState<Session[]>(sessions);
+  const [open, setOpen] = useState(false);
+  const [name, setName] = useState("");
+  const [number, setNumber] = useState("");
+  const [error, setError] = useState("");
+  const [active, setActive] = useState<Session | null>(null);
+  const [connected, setConnected] = useState(false);
+
+  function create(e: React.FormEvent) {
+    e.preventDefault();
+    const trimmed = name.trim();
+    if (!trimmed) return setError("Session name is required.");
+    if (rows.some((r) => r.name === trimmed)) return setError("This session name already exists.");
+    const created: Session = {
+      name: trimmed,
+      number: number.trim() || "—",
+      status: "scan qr",
+      msgs: "0",
+    };
+    setRows((prev) => [created, ...prev]);
+    setActive(created);
+    setConnected(false);
+    setOpen(false);
+    setName("");
+    setNumber("");
+    setError("");
+  }
+
+  function markConnected() {
+    if (!active) return;
+    setRows((prev) =>
+      prev.map((r) => (r.name === active.name ? { ...r, status: "connected" } : r)),
+    );
+    setConnected(true);
+  }
+
+  return (
+    <>
+      <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
+        <Card
+          title="All sessions"
+          action={
+            <button
+              onClick={() => {
+                setOpen(true);
+                setError("");
+              }}
+              className="glow-ring rounded-full bg-primary px-3.5 py-1.5 text-xs font-semibold text-primary-foreground"
+            >
+              New session
+            </button>
+          }
+        >
+          <SessionTable rows={rows} />
+        </Card>
+        <Card title={active ? `Connect · ${active.name}` : "Connect a device"}>
+          {active ? (
+            <>
+              <div className="grid place-items-center rounded-2xl border border-border p-4">
+                <QrPattern seed={active.name + active.number} />
+              </div>
+              <ol className="mt-4 space-y-2 text-xs text-muted-foreground">
+                <li>1. Open WhatsApp on your phone.</li>
+                <li>2. Go to Settings → Linked devices.</li>
+                <li>3. Scan this QR code to link the session.</li>
+              </ol>
+              {connected ? (
+                <p className="mt-4 font-mono text-[11px] text-primary">
+                  ● session connected
+                </p>
+              ) : (
+                <button
+                  onClick={markConnected}
+                  className="mt-4 w-full rounded-full border border-border px-3 py-2 text-xs font-semibold hover:bg-surface"
+                >
+                  I have scanned it
+                </button>
+              )}
+            </>
+          ) : (
+            <>
+              <div className="grid place-items-center rounded-2xl border border-dashed border-border p-8">
+                <QrCode className="size-24 text-primary" />
+              </div>
+              <p className="mt-4 text-xs text-muted-foreground">
+                Create a new session to generate a QR code.
+              </p>
+            </>
+          )}
+        </Card>
+      </div>
+
+      {open && (
+        <div className="fixed inset-0 z-50 grid place-items-center bg-background/80 p-4 backdrop-blur-sm">
+          <form
+            onSubmit={create}
+            className="glass-card w-full max-w-sm rounded-2xl p-6"
+          >
+            <h3 className="font-display text-base font-bold">New session</h3>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Give the session a name and the WhatsApp number you want to link.
+            </p>
+
+            <label className="mt-5 block text-xs text-muted-foreground">Session name</label>
+            <input
+              autoFocus
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="support-02"
+              className="mt-1.5 w-full rounded-xl border border-border bg-surface px-3 py-2 font-mono text-sm outline-none focus:border-primary"
+            />
+
+            <label className="mt-4 block text-xs text-muted-foreground">
+              WhatsApp number (optional)
+            </label>
+            <input
+              value={number}
+              onChange={(e) => setNumber(e.target.value)}
+              placeholder="+880 1700-000000"
+              className="mt-1.5 w-full rounded-xl border border-border bg-surface px-3 py-2 font-mono text-sm outline-none focus:border-primary"
+            />
+
+            {error && <p className="mt-3 text-xs text-destructive">{error}</p>}
+
+            <div className="mt-6 flex gap-3">
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="flex-1 rounded-full border border-border px-3 py-2 text-xs font-semibold hover:bg-surface"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="glow-ring flex-1 rounded-full bg-primary px-3 py-2 text-xs font-semibold text-primary-foreground"
+              >
+                Create
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+    </>
+  );
+}
+
 
 function Messages() {
   return (
