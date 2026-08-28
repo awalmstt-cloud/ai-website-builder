@@ -607,9 +607,18 @@ function Webhooks() {
   const [url, setUrl] = useState("");
   const [selected, setSelected] = useState<string[]>(["message.received", "message.sent"]);
   const [error, setError] = useState("");
+  const [enabled, setEnabled] = useState<string[]>([
+    "message.received",
+    "message.sent",
+    "session.connected",
+  ]);
 
   function toggle(id: string) {
     setSelected((prev) => (prev.includes(id) ? prev.filter((e) => e !== id) : [...prev, id]));
+  }
+
+  function toggleEnabled(id: string) {
+    setEnabled((prev) => (prev.includes(id) ? prev.filter((e) => e !== id) : [...prev, id]));
   }
 
   function connect(e: React.FormEvent) {
@@ -649,7 +658,7 @@ function Webhooks() {
                 <code className="font-mono text-xs">{ep.url}</code>
                 <StatusPill status={ep.status} />
                 <span className="ml-auto font-mono text-[11px] text-muted-foreground">
-                  {ep.events.join(" · ")}
+                  {enabled.length > 0 ? enabled.join(" · ") : "no events enabled"}
                 </span>
               </div>
             ))}
@@ -663,16 +672,48 @@ function Webhooks() {
           </p>
         </Card>
 
-        <Card title="Events you can subscribe to">
+        <Card
+          title="Events you can subscribe to"
+          action={
+            <span className="font-mono text-[11px] text-muted-foreground">
+              {enabled.length} of {webhookEvents.length} on
+            </span>
+          }
+        >
           <div className="grid gap-3 sm:grid-cols-2">
-            {webhookEvents.map((ev) => (
-              <div key={ev.id} className="rounded-xl border border-border/60 px-4 py-3">
-                <p className="font-mono text-[11px] text-primary">{ev.id}</p>
-                <p className="mt-1 text-sm">{ev.label}</p>
-                <p className="text-xs text-muted-foreground">{ev.desc}</p>
-              </div>
-            ))}
+            {webhookEvents.map((ev) => {
+              const on = enabled.includes(ev.id);
+              return (
+                <div
+                  key={ev.id}
+                  className={`flex items-start gap-3 rounded-xl border px-4 py-3 transition-colors ${
+                    on ? "border-primary/50 bg-primary/5" : "border-border/60"
+                  }`}
+                >
+                  <div className="min-w-0 flex-1">
+                    <p className="font-mono text-[11px] text-primary">{ev.id}</p>
+                    <p className="mt-1 text-sm">{ev.label}</p>
+                    <p className="text-xs text-muted-foreground">{ev.desc}</p>
+                  </div>
+                  <button
+                    type="button"
+                    role="switch"
+                    aria-checked={on}
+                    aria-label={`${on ? "Disable" : "Enable"} ${ev.label}`}
+                    onClick={() => toggleEnabled(ev.id)}
+                    className={`mt-0.5 flex h-5 w-9 shrink-0 items-center rounded-full px-0.5 transition-colors ${
+                      on ? "justify-end bg-primary" : "justify-start bg-border"
+                    }`}
+                  >
+                    <span className="size-4 rounded-full bg-white shadow" />
+                  </button>
+                </div>
+              );
+            })}
           </div>
+          <p className="mt-4 text-xs text-muted-foreground">
+            Switched-on events are pushed to every connected endpoint above.
+          </p>
         </Card>
       </div>
 
