@@ -173,7 +173,7 @@ function Landing() {
               SafeWachat AI automation OS for WhatsApp
             </span>
 
-            <h1 className="mt-8 font-display text-6xl leading-[0.98] font-black tracking-[-0.03em] text-foreground md:text-8xl">
+            <h1 className="mt-8 font-display text-6xl leading-[0.98] font-black tracking-[-0.03em] text-foreground md:text-7xl whitespace-nowrap">
               Turn WhatsApp into an
               <br />
               <span className="text-animated-gradient">AI workflow engine.</span>
