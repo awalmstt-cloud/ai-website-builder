@@ -1,0 +1,514 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
+import {
+  Activity,
+  Bot,
+  Copy,
+  Gauge,
+  KeyRound,
+  LogOut,
+  MessageSquareDot,
+  QrCode,
+  Send,
+  Settings,
+  Smartphone,
+  Webhook,
+} from "lucide-react";
+import { AuroraBackground } from "@/components/AuroraBackground";
+
+export const Route = createFileRoute("/dashboard")({
+  head: () => ({
+    meta: [
+      { title: "Dashboard — SafeWA" },
+      {
+        name: "description",
+        content:
+          "Manage WhatsApp sessions, monitor message delivery and AI replies from the SafeWA dashboard.",
+      },
+      { property: "og:title", content: "Dashboard — SafeWA" },
+      {
+        property: "og:description",
+        content: "Sessions, message volume, AI replies and API keys in one place.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: DashboardPage,
+});
+
+const nav = [
+  { id: "overview", label: "Overview", icon: Gauge },
+  { id: "sessions", label: "Sessions", icon: Smartphone },
+  { id: "messages", label: "Messages", icon: Send },
+  { id: "ai", label: "AI Replies", icon: Bot },
+  { id: "webhooks", label: "Webhooks", icon: Webhook },
+  { id: "keys", label: "API Keys", icon: KeyRound },
+  { id: "settings", label: "Settings", icon: Settings },
+] as const;
+
+type TabId = (typeof nav)[number]["id"];
+
+const stats = [
+  { label: "Messages sent", value: "48,213", delta: "+12.4%" },
+  { label: "AI replies", value: "19,806", delta: "+8.1%" },
+  { label: "Active sessions", value: "6", delta: "2 idle" },
+  { label: "Avg. reply time", value: "0.41s", delta: "-0.06s" },
+];
+
+const volume = [32, 45, 38, 62, 55, 78, 66, 84, 71, 92, 80, 97];
+
+const sessions = [
+  { name: "support-01", number: "+880 1700-000000", status: "connected", msgs: "12,904" },
+  { name: "sales-bd", number: "+880 1811-222333", status: "connected", msgs: "8,431" },
+  { name: "orders-bot", number: "+880 1999-888777", status: "connected", msgs: "6,120" },
+  { name: "marketing-2", number: "—", status: "scan qr", msgs: "0" },
+  { name: "legacy-01", number: "+880 1555-444333", status: "disconnected", msgs: "3,002" },
+];
+
+const activity = [
+  { to: "+880 1712-345678", text: "Your order #4821 has been shipped.", kind: "AI", time: "2m" },
+  { to: "+880 1934-119922", text: "Sure! Our pricing starts at $19/mo.", kind: "AI", time: "6m" },
+  { to: "+880 1888-772211", text: "invoice-august.pdf", kind: "Document", time: "14m" },
+  { to: "+880 1611-505050", text: "Welcome to SafeWA 🎉", kind: "Template", time: "31m" },
+];
+
+function DashboardPage() {
+  const [tab, setTab] = useState<TabId>("overview");
+
+  return (
+    <div className="relative min-h-screen">
+      <AuroraBackground />
+
+      <div className="relative mx-auto flex max-w-7xl gap-6 px-4 py-6 lg:px-6">
+        {/* sidebar */}
+        <aside className="glass-card sticky top-6 hidden h-[calc(100vh-3rem)] w-60 shrink-0 flex-col rounded-3xl p-4 md:flex">
+          <Link to="/" className="mb-6 flex items-center gap-2 px-2 font-display text-sm font-bold">
+            <span className="grid size-8 place-items-center rounded-full bg-primary text-primary-foreground">
+              <MessageSquareDot className="size-4" />
+            </span>
+            SafeWA
+          </Link>
+
+          <nav className="flex flex-col gap-1">
+            {nav.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => setTab(item.id)}
+                className={`flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm transition-colors ${
+                  tab === item.id
+                    ? "bg-surface text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                <item.icon className="size-4" />
+                {item.label}
+              </button>
+            ))}
+          </nav>
+
+          <div className="mt-auto">
+            <div className="glass-card rounded-2xl p-3 text-xs text-muted-foreground">
+              <p className="font-mono text-[11px] text-foreground">Growth plan</p>
+              <p className="mt-1">48,213 / 100,000 messages</p>
+              <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-surface">
+                <div className="h-full w-1/2 rounded-full bg-primary" />
+              </div>
+            </div>
+            <Link
+              to="/login"
+              className="mt-3 flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <LogOut className="size-4" /> Log out
+            </Link>
+          </div>
+        </aside>
+
+        {/* main */}
+        <main className="min-w-0 flex-1 space-y-6">
+          <header className="glass-card flex flex-wrap items-center gap-3 rounded-2xl px-4 py-3">
+            <div>
+              <h1 className="font-display text-lg font-bold">
+                {nav.find((n) => n.id === tab)?.label}
+              </h1>
+              <p className="text-xs text-muted-foreground">
+                api.safewachat.online · production workspace
+              </p>
+            </div>
+            <div className="ml-auto flex items-center gap-2">
+              <span className="glass-card inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-mono text-[11px] text-muted-foreground">
+                <span className="size-2 rounded-full bg-primary" /> All systems normal
+              </span>
+              <span className="grid size-9 place-items-center rounded-full bg-primary font-display text-sm font-bold text-primary-foreground">
+                A
+              </span>
+            </div>
+          </header>
+
+          {/* mobile nav */}
+          <div className="flex gap-2 overflow-x-auto md:hidden">
+            {nav.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => setTab(item.id)}
+                className={`shrink-0 rounded-full px-3 py-1.5 text-xs transition-colors ${
+                  tab === item.id
+                    ? "bg-primary text-primary-foreground"
+                    : "glass-card text-muted-foreground"
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+
+          {tab === "overview" && <Overview />}
+          {tab === "sessions" && <Sessions />}
+          {tab === "messages" && <Messages />}
+          {tab === "ai" && <AiReplies />}
+          {tab === "webhooks" && <Webhooks />}
+          {tab === "keys" && <ApiKeys />}
+          {tab === "settings" && <SettingsPanel />}
+        </main>
+      </div>
+    </div>
+  );
+}
+
+function Card({
+  title,
+  children,
+  action,
+}: {
+  title: string;
+  children: React.ReactNode;
+  action?: React.ReactNode;
+}) {
+  return (
+    <section className="glass-card rounded-2xl p-5">
+      <div className="mb-4 flex items-center gap-3">
+        <h2 className="font-display text-sm font-bold">{title}</h2>
+        {action && <div className="ml-auto">{action}</div>}
+      </div>
+      {children}
+    </section>
+  );
+}
+
+function StatusPill({ status }: { status: string }) {
+  const tone =
+    status === "connected"
+      ? "text-primary"
+      : status === "scan qr"
+        ? "text-accent"
+        : "text-destructive";
+  return (
+    <span className={`inline-flex items-center gap-1.5 font-mono text-[11px] ${tone}`}>
+      <span className="size-1.5 rounded-full bg-current" />
+      {status}
+    </span>
+  );
+}
+
+function Overview() {
+  return (
+    <div className="space-y-6">
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {stats.map((s) => (
+          <div key={s.label} className="glass-card rounded-2xl p-4">
+            <p className="text-xs text-muted-foreground">{s.label}</p>
+            <p className="mt-2 font-display text-2xl font-bold">{s.value}</p>
+            <p className="mt-1 font-mono text-[11px] text-primary">{s.delta}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
+        <Card
+          title="Message volume · last 12 hours"
+          action={
+            <span className="font-mono text-[11px] text-muted-foreground">hourly delivery</span>
+          }
+        >
+          <div className="flex h-44 items-end gap-2">
+            {volume.map((v, i) => (
+              <div key={i} className="flex-1">
+                <div
+                  className="rounded-t-md bg-primary/70 transition-colors hover:bg-primary"
+                  style={{ height: `${v * 1.6}px` }}
+                />
+              </div>
+            ))}
+          </div>
+          <div className="mt-2 flex justify-between font-mono text-[10px] text-muted-foreground">
+            <span>12:00</span>
+            <span>18:00</span>
+            <span>now</span>
+          </div>
+        </Card>
+
+        <Card title="Recent activity">
+          <ul className="space-y-3">
+            {activity.map((a) => (
+              <li key={a.to} className="flex items-start gap-3">
+                <span className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-full bg-surface">
+                  <Activity className="size-3.5 text-primary" />
+                </span>
+                <div className="min-w-0">
+                  <p className="truncate text-sm">{a.text}</p>
+                  <p className="font-mono text-[11px] text-muted-foreground">
+                    {a.to} · {a.kind} · {a.time} ago
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </Card>
+      </div>
+
+      <Card title="Sessions">
+        <SessionTable />
+      </Card>
+    </div>
+  );
+}
+
+function SessionTable() {
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full text-left text-sm">
+        <thead>
+          <tr className="text-xs text-muted-foreground">
+            <th className="pb-2 font-normal">Session</th>
+            <th className="pb-2 font-normal">Number</th>
+            <th className="pb-2 font-normal">Status</th>
+            <th className="pb-2 text-right font-normal">Messages</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sessions.map((s) => (
+            <tr key={s.name} className="border-t border-border/60">
+              <td className="py-3 font-mono text-xs">{s.name}</td>
+              <td className="py-3 text-muted-foreground">{s.number}</td>
+              <td className="py-3">
+                <StatusPill status={s.status} />
+              </td>
+              <td className="py-3 text-right font-mono text-xs">{s.msgs}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function Sessions() {
+  return (
+    <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
+      <Card
+        title="All sessions"
+        action={
+          <button className="glow-ring rounded-full bg-primary px-3.5 py-1.5 text-xs font-semibold text-primary-foreground">
+            New session
+          </button>
+        }
+      >
+        <SessionTable />
+      </Card>
+      <Card title="Connect a device">
+        <div className="grid place-items-center rounded-2xl border border-dashed border-border p-8">
+          <QrCode className="size-24 text-primary" />
+        </div>
+        <ol className="mt-4 space-y-2 text-xs text-muted-foreground">
+          <li>1. Open WhatsApp on your phone.</li>
+          <li>2. Go to Settings → Linked devices.</li>
+          <li>3. Scan this QR code to link the session.</li>
+        </ol>
+      </Card>
+    </div>
+  );
+}
+
+function Messages() {
+  return (
+    <Card title="Message log">
+      <div className="overflow-x-auto">
+        <table className="w-full text-left text-sm">
+          <thead>
+            <tr className="text-xs text-muted-foreground">
+              <th className="pb-2 font-normal">To</th>
+              <th className="pb-2 font-normal">Content</th>
+              <th className="pb-2 font-normal">Type</th>
+              <th className="pb-2 text-right font-normal">Sent</th>
+            </tr>
+          </thead>
+          <tbody>
+            {activity.concat(activity).map((a, i) => (
+              <tr key={i} className="border-t border-border/60">
+                <td className="py-3 font-mono text-xs">{a.to}</td>
+                <td className="max-w-xs truncate py-3 text-muted-foreground">{a.text}</td>
+                <td className="py-3 font-mono text-[11px] text-primary">{a.kind}</td>
+                <td className="py-3 text-right font-mono text-[11px] text-muted-foreground">
+                  {a.time} ago
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </Card>
+  );
+}
+
+function AiReplies() {
+  return (
+    <div className="grid gap-6 lg:grid-cols-2">
+      <Card title="AI assistant">
+        <label className="block text-xs text-muted-foreground">System prompt</label>
+        <textarea
+          rows={6}
+          defaultValue="You are SafeWA support. Reply in the customer's language, keep answers under 3 sentences, and never share internal pricing."
+          className="mt-1.5 w-full rounded-xl border border-input bg-surface p-3 text-sm outline-none focus:ring-2 focus:ring-ring"
+        />
+        <div className="mt-4 grid grid-cols-2 gap-3">
+          <div>
+            <p className="text-xs text-muted-foreground">Reply delay</p>
+            <p className="mt-1 font-mono text-sm">0.4s</p>
+          </div>
+          <div>
+            <p className="text-xs text-muted-foreground">Fallback to human</p>
+            <p className="mt-1 font-mono text-sm">after 2 unknowns</p>
+          </div>
+        </div>
+        <button className="glow-ring mt-5 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground">
+          Save assistant
+        </button>
+      </Card>
+      <Card title="Performance">
+        <div className="space-y-4">
+          {[
+            { label: "Auto-resolved", value: 68 },
+            { label: "Handed to human", value: 22 },
+            { label: "No match", value: 10 },
+          ].map((r) => (
+            <div key={r.label}>
+              <div className="flex justify-between text-xs text-muted-foreground">
+                <span>{r.label}</span>
+                <span className="font-mono">{r.value}%</span>
+              </div>
+              <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-surface">
+                <div className="h-full rounded-full bg-primary" style={{ width: `${r.value}%` }} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+function Webhooks() {
+  return (
+    <Card title="Webhook endpoints">
+      <div className="space-y-3">
+        {["https://your.app/hooks/safewa", "https://crm.your.app/whatsapp"].map((url) => (
+          <div
+            key={url}
+            className="flex flex-wrap items-center gap-3 rounded-xl border border-border/60 px-4 py-3"
+          >
+            <code className="font-mono text-xs">{url}</code>
+            <StatusPill status="connected" />
+            <span className="ml-auto font-mono text-[11px] text-muted-foreground">
+              message.received · session.status
+            </span>
+          </div>
+        ))}
+      </div>
+      <p className="mt-4 text-xs text-muted-foreground">
+        Failed deliveries retry after 10 seconds, 1 minute and 10 minutes. See the{" "}
+        <Link to="/docs" className="text-primary hover:underline">
+          webhook docs
+        </Link>
+        .
+      </p>
+    </Card>
+  );
+}
+
+function ApiKeys() {
+  return (
+    <Card
+      title="API keys"
+      action={
+        <button className="glow-ring rounded-full bg-primary px-3.5 py-1.5 text-xs font-semibold text-primary-foreground">
+          Create key
+        </button>
+      }
+    >
+      <div className="space-y-3">
+        {[
+          { name: "production", key: "sk_live_9f3k••••••••21ab", used: "2 minutes ago" },
+          { name: "staging", key: "sk_test_04ma••••••••77cd", used: "3 days ago" },
+        ].map((k) => (
+          <div
+            key={k.name}
+            className="flex flex-wrap items-center gap-3 rounded-xl border border-border/60 px-4 py-3"
+          >
+            <span className="font-display text-sm font-bold">{k.name}</span>
+            <code className="font-mono text-xs text-muted-foreground">{k.key}</code>
+            <span className="ml-auto font-mono text-[11px] text-muted-foreground">
+              last used {k.used}
+            </span>
+            <button className="rounded-md px-2 py-1 text-muted-foreground hover:bg-surface hover:text-foreground">
+              <Copy className="size-3.5" />
+            </button>
+          </div>
+        ))}
+      </div>
+      <p className="mt-4 text-xs text-muted-foreground">
+        Send your key as <code className="font-mono">Authorization: Bearer &lt;key&gt;</code> to
+        <code className="ml-1 font-mono">https://api.safewachat.online</code>.
+      </p>
+    </Card>
+  );
+}
+
+function SettingsPanel() {
+  return (
+    <div className="grid gap-6 lg:grid-cols-2">
+      <Card title="Workspace">
+        <div className="space-y-4">
+          <Field label="Workspace name" defaultValue="SafeWA Production" />
+          <Field label="Contact email" defaultValue="team@safewachat.online" />
+          <Field label="Default session" defaultValue="support-01" />
+          <button className="glow-ring rounded-full bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground">
+            Save changes
+          </button>
+        </div>
+      </Card>
+      <Card title="Danger zone">
+        <p className="text-xs text-muted-foreground">
+          Disconnecting all sessions logs every linked phone out of SafeWA. You will need to scan
+          the QR codes again.
+        </p>
+        <button className="mt-4 rounded-full border border-destructive px-4 py-2 text-xs font-semibold text-destructive">
+          Disconnect all sessions
+        </button>
+      </Card>
+    </div>
+  );
+}
+
+function Field({ label, ...props }: { label: string } & React.InputHTMLAttributes<HTMLInputElement>) {
+  return (
+    <label className="block">
+      <span className="text-xs text-muted-foreground">{label}</span>
+      <input
+        {...props}
+        className="mt-1.5 w-full rounded-xl border border-input bg-surface px-3.5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-ring"
+      />
+    </label>
+  );
+}

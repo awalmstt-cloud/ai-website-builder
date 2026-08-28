@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { AuroraBackground } from "@/components/AuroraBackground";
 import { AuthLayout } from "@/components/AuthLayout";
@@ -24,6 +24,7 @@ export const Route = createFileRoute("/login")({
 });
 
 function LoginPage() {
+  const navigate = useNavigate();
   return (
     <div className="relative min-h-screen">
       <AuroraBackground />
@@ -43,6 +44,7 @@ function LoginPage() {
           className="space-y-4"
           onSubmit={(e) => {
             e.preventDefault();
+            void navigate({ to: "/dashboard" });
           }}
         >
           <Field label="Email" type="email" name="email" placeholder="you@company.com" />
