@@ -378,8 +378,9 @@ qr = requests.get(
 
           <Section id="messages" kicker="Core API" title="Send messages">
             <p>
-              One request shape for everything WhatsApp supports — text, images, video, documents,
-              voice notes, locations, contacts and polls. Change the <code className="font-mono text-foreground">type</code> field, keep the rest.
+              text, ছবি, ভিডিও, ডকুমেন্ট, ভয়েস নোট, লোকেশন — সব মেসেজের নিয়ম একই। শুধু{" "}
+              <code className="font-mono text-foreground">type</code> লাইনটা বদলান, বাকি সব আগের মতোই
+              থাকে।
             </p>
             <Method method="POST" path="/v1/messages" />
             <Code
@@ -398,16 +399,17 @@ qr = requests.get(
               footer="→ every call returns a message id + queued state"
             />
             <p>
-              Responses include a <code className="font-mono text-foreground">message_id</code> you can
-              reconcile with delivery receipts on the webhook stream.
+              মেসেজ পাঠালে আপনি একটা <code className="font-mono text-foreground">message_id</code> পাবেন।
+              মেসেজ ডেলিভার হলো কি না, সেটা এই id দিয়ে webhook থেকে মিলিয়ে দেখতে পারবেন।
             </p>
           </Section>
 
           <Section id="ai-replies" kicker="AI layer" title="AI auto-replies">
             <p>
-              Add the <code className="font-mono text-foreground">ai</code> block to any session or
-              message and SafeWA answers incoming threads from your own data — catalogue, docs or FAQ
-              — in the customer&apos;s language, usually in under a second.
+              কাস্টমার মেসেজ দিলে AI নিজে উত্তর দেবে — এটা চালু করতে হলে শুধু session-এ{" "}
+              <code className="font-mono text-foreground">ai</code> অংশটা যোগ করুন। আপনার প্রোডাক্ট
+              লিস্ট বা FAQ দিয়ে দিলে AI সেই তথ্য থেকে, কাস্টমারের ভাষাতেই উত্তর দেয় — সাধারণত এক
+              সেকেন্ডের মধ্যে।
             </p>
             <CodeTabs
               title="Enable auto-reply on a session"
@@ -461,9 +463,9 @@ qr = requests.get(
             />
             <ul className="space-y-2 text-sm">
               {[
-                "Per-message language detection — Bangla, English, or mixed threads just work.",
-                "Escalate on keyword, sentiment, or low confidence; humans take the thread mid-flow.",
-                "Every reply ships with a transcript and the sources it grounded on.",
+                "বাংলা, English বা মিশ্রো — কাস্টমার যে ভাষায় লিখবে, AI সেই ভাষায়ই উত্তর দেবে।",
+                "AI নিশ্চিত না হলে বা কাস্টমার মানুষ চাইলে, চ্যাটটা আপনার টিমের কাছে চলে যায়।",
+                "প্রতিটা AI উত্তরের সাথে পুরো transcript আর সে কোন তথ্য দেখে উত্তর দিলো, তাও পাবেন।",
               ].map((t) => (
                 <li key={t} className="flex gap-3">
                   <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-primary" />
@@ -475,8 +477,9 @@ qr = requests.get(
 
           <Section id="webhooks" kicker="Realtime" title="Webhooks">
             <p>
-              One webhook per session receives messages, delivery receipts, session state changes
-              and AI activity. Verify the signature header before processing.
+              webhook হলো আপনার সার্ভারের একটা URL যেখানে SafeWA খবর পাঠায় — নতুন মেসেজ এলো,
+              ডেলিভার হলো, session কানেক্ট/ডিসকানেক্ট হলো। নিরাপত্তার জন্য আগে signature টা চেক করুন,
+              তারপর কাজ করুন।
             </p>
             <Code
               title="Incoming message payload"
@@ -497,9 +500,11 @@ X-SafeWA-Signature: sha256=…
 
           <Section id="errors" kicker="Reference" title="Errors & rate limits">
             <p>
-              Errors use a consistent JSON shape. Rate limits apply per key: 60 req/s on Growth,
-              200 req/s on Scale, with <code className="font-mono text-foreground">429</code> and a{" "}
-              <code className="font-mono text-foreground">retry_after</code> hint when exceeded.
+              কিছু ভুল হলে সব error একইভাবে আসে — একটা <code className="font-mono text-foreground">code</code>{" "}
+              আর বোঝার মতো <code className="font-mono text-foreground">message</code>। প্রতি key-তে
+              সেকেন্ডে কতবার কল করা যায় তার সীমা আছে (Growth-এ ৬০, Scale-এ ২০০)। সীমা পার হলে{" "}
+              <code className="font-mono text-foreground">429</code> আসবে — কতক্ষণ অপেক্ষা করতে হবে সেটাও
+              বলে দেওয়া থাকে।
             </p>
             <Code
               title="Error response"
