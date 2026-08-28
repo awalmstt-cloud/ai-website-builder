@@ -185,21 +185,49 @@ function Docs() {
               SafeWA documentation
             </h1>
             <p className="mt-4 max-w-xl text-muted-foreground">
-              Everything you need to link a WhatsApp number, send any message type through one
-              endpoint, and switch on AI auto-replies.
+              এই পেজে ধাপে ধাপে দেখানো হয়েছে কীভাবে আপনার WhatsApp নম্বর কানেক্ট করে মেসেজ পাঠাবেন
+              এবং AI auto-reply চালু করবেন — সব একটাই API দিয়ে।
             </p>
           </div>
 
-          <Section id="quickstart" kicker="Start here" title="Quickstart">
+          {/* plain-language glossary */}
+          <div className="grid gap-4 sm:grid-cols-3">
+            {[
+              {
+                icon: KeyRound,
+                term: "API key",
+                desc: "আপনার অ্যাকাউন্টের পাসওয়ার্ডের মতো একটা গোপন কোড। প্রতিটা request-এর সাথে এটা পাঠাতে হয়, যাতে SafeWA বোঝে আপনিই কল করছেন।",
+              },
+              {
+                icon: QrCode,
+                term: "Session",
+                desc: "একটা session মানে একটা WhatsApp নম্বর কানেক্ট করা। QR স্ক্যান করলেই session চালু হয়ে যায় — ঠিক WhatsApp Web-এর মতো।",
+              },
+              {
+                icon: BellRing,
+                term: "Webhook",
+                desc: "আপনার সার্ভারের একটা URL। কেউ আপনাকে WhatsApp-এ মেসেজ দিলে SafeWA সেই URL-এ খবর পাঠিয়ে দেয়।",
+              },
+            ].map((g) => (
+              <div key={g.term} className="glass-card rounded-xl p-4">
+                <p className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                  <g.icon className="size-4 text-primary" /> {g.term}
+                </p>
+                <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{g.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <Section id="quickstart" kicker="Start here" title="Quickstart — ৩ ধাপে শুরু করুন">
             <p>
-              Three steps and your first message is out the door. Create an API key in the
-              dashboard, link a session by scanning a QR code, then POST your first message.
+              মাত্র ৩টা কাজ করলেই আপনার প্রথম মেসেজ চলে যাবে। কোনো জটিল সেটআপ নেই — নিচের ধাপগুলো
+              একে একে ফলো করুন:
             </p>
             <ol className="grid gap-4 sm:grid-cols-3">
               {[
-                ["01", "Create an API key", "Dashboard → Settings → API keys → New key."],
-                ["02", "Link a session", "POST /v1/sessions and scan the returned QR from WhatsApp."],
-                ["03", "Send a message", "POST /v1/messages with the session name and recipient."],
+                ["01", "API key বানান", "Dashboard-এ গিয়ে Settings → API keys → New key চাপুন। কপি করে রাখুন।"],
+                ["02", "WhatsApp কানেক্ট করুন", "POST /v1/sessions কল করুন, QR কোড পাবেন — ফোন থেকে স্ক্যান করুন।"],
+                ["03", "মেসেজ পাঠান", "POST /v1/messages-এ session-এর নাম আর প্রাপকের নম্বর দিন। ব্যস!"],
               ].map(([n, t, b]) => (
                 <li key={n} className="glass-card rounded-xl p-4">
                   <p className="font-mono text-xs text-muted-foreground">{n}</p>
@@ -262,8 +290,9 @@ print(res.json())`,
 
           <Section id="auth" kicker="Security" title="Authentication">
             <p>
-              Every request carries a Bearer token. Keys are scoped per workspace and can be
-              rotated or revoked at any time without touching your code.
+              প্রতিটা request-এর সাথে আপনার API key পাঠাতে হয় <code className="font-mono text-foreground">Authorization</code>{" "}
+              header-এ। key হারিয়ে গেলে বা চাইলে যেকোনো সময় নতুন key বানাতে বা পুরোনোটা বন্ধ করতে
+              পারবেন — কোড বদলাতে হবে না।
             </p>
             <Method method="GET" path="https://api.safewa.dev/v1/whoami" />
             <Code
@@ -273,16 +302,16 @@ print(res.json())`,
               footer='{ "workspace": "acme-shop", "plan": "growth" }'
             />
             <p className="glass-card rounded-xl border-l-2 border-l-primary px-4 py-3 text-xs">
-              Never ship a live key in a mobile app or browser bundle. Proxy calls through your own
-              backend, or use scoped webhooks for read-only data.
+              সতর্কতা: live key কখনো মোবাইল অ্যাপ বা ব্রাউজারে রাখবেন না — সবাই দেখে ফেলতে পারবে।
+              সবসময় নিজের backend থেকে কল করুন।
             </p>
           </Section>
 
           <Section id="sessions" kicker="Connections" title="Sessions & QR linking">
             <p>
-              A session is one connected WhatsApp number. Create it, poll for the QR image, scan it
-              from the phone, and the session goes live and stays warm — reconnecting on its own if
-              the device sleeps.
+              মনে করুন একটা session = একটা WhatsApp নম্বর। session বানান, QR ছবিটা নিন, ফোনের
+              WhatsApp থেকে স্ক্যান করুন — ব্যস, কানেক্ট হয়ে গেছে। ফোন ঘুমিয়ে গেলেও session নিজে
+              নিজে আবার জুড়ে যায়।
             </p>
             <Method method="POST" path="/v1/sessions" />
             <CodeTabs
@@ -335,9 +364,9 @@ qr = requests.get(
             />
             <ul className="space-y-2 text-sm">
               {[
-                "QR codes expire after 60 seconds — request a fresh one on expiry.",
-                "One number = one session. Sessions are isolated with their own webhook target.",
-                "State events (linked, dropped, reconnected) arrive on your webhook in real time.",
+                "QR কোড ৬০ সেকেন্ড পরে মেয়াদ শেষ হয় — নতুন করে চাইলে আরেকটা নিয়ে নিন।",
+                "একটা নম্বর = একটা session। প্রতিটা session আলাদা, নিজের webhook URL সহ।",
+                "কানেক্ট/ডিসকানেক্ট হলে সাথে সাথেই আপনার webhook-এ খবর চলে আসবে।",
               ].map((t) => (
                 <li key={t} className="flex gap-3">
                   <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-primary" />
@@ -349,8 +378,9 @@ qr = requests.get(
 
           <Section id="messages" kicker="Core API" title="Send messages">
             <p>
-              One request shape for everything WhatsApp supports — text, images, video, documents,
-              voice notes, locations, contacts and polls. Change the <code className="font-mono text-foreground">type</code> field, keep the rest.
+              text, ছবি, ভিডিও, ডকুমেন্ট, ভয়েস নোট, লোকেশন — সব মেসেজের নিয়ম একই। শুধু{" "}
+              <code className="font-mono text-foreground">type</code> লাইনটা বদলান, বাকি সব আগের মতোই
+              থাকে।
             </p>
             <Method method="POST" path="/v1/messages" />
             <Code
@@ -369,16 +399,17 @@ qr = requests.get(
               footer="→ every call returns a message id + queued state"
             />
             <p>
-              Responses include a <code className="font-mono text-foreground">message_id</code> you can
-              reconcile with delivery receipts on the webhook stream.
+              মেসেজ পাঠালে আপনি একটা <code className="font-mono text-foreground">message_id</code> পাবেন।
+              মেসেজ ডেলিভার হলো কি না, সেটা এই id দিয়ে webhook থেকে মিলিয়ে দেখতে পারবেন।
             </p>
           </Section>
 
           <Section id="ai-replies" kicker="AI layer" title="AI auto-replies">
             <p>
-              Add the <code className="font-mono text-foreground">ai</code> block to any session or
-              message and SafeWA answers incoming threads from your own data — catalogue, docs or FAQ
-              — in the customer&apos;s language, usually in under a second.
+              কাস্টমার মেসেজ দিলে AI নিজে উত্তর দেবে — এটা চালু করতে হলে শুধু session-এ{" "}
+              <code className="font-mono text-foreground">ai</code> অংশটা যোগ করুন। আপনার প্রোডাক্ট
+              লিস্ট বা FAQ দিয়ে দিলে AI সেই তথ্য থেকে, কাস্টমারের ভাষাতেই উত্তর দেয় — সাধারণত এক
+              সেকেন্ডের মধ্যে।
             </p>
             <CodeTabs
               title="Enable auto-reply on a session"
@@ -432,9 +463,9 @@ qr = requests.get(
             />
             <ul className="space-y-2 text-sm">
               {[
-                "Per-message language detection — Bangla, English, or mixed threads just work.",
-                "Escalate on keyword, sentiment, or low confidence; humans take the thread mid-flow.",
-                "Every reply ships with a transcript and the sources it grounded on.",
+                "বাংলা, English বা মিশ্রো — কাস্টমার যে ভাষায় লিখবে, AI সেই ভাষায়ই উত্তর দেবে।",
+                "AI নিশ্চিত না হলে বা কাস্টমার মানুষ চাইলে, চ্যাটটা আপনার টিমের কাছে চলে যায়।",
+                "প্রতিটা AI উত্তরের সাথে পুরো transcript আর সে কোন তথ্য দেখে উত্তর দিলো, তাও পাবেন।",
               ].map((t) => (
                 <li key={t} className="flex gap-3">
                   <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-primary" />
@@ -446,8 +477,9 @@ qr = requests.get(
 
           <Section id="webhooks" kicker="Realtime" title="Webhooks">
             <p>
-              One webhook per session receives messages, delivery receipts, session state changes
-              and AI activity. Verify the signature header before processing.
+              webhook হলো আপনার সার্ভারের একটা URL যেখানে SafeWA খবর পাঠায় — নতুন মেসেজ এলো,
+              ডেলিভার হলো, session কানেক্ট/ডিসকানেক্ট হলো। নিরাপত্তার জন্য আগে signature টা চেক করুন,
+              তারপর কাজ করুন।
             </p>
             <Code
               title="Incoming message payload"
@@ -468,9 +500,11 @@ X-SafeWA-Signature: sha256=…
 
           <Section id="errors" kicker="Reference" title="Errors & rate limits">
             <p>
-              Errors use a consistent JSON shape. Rate limits apply per key: 60 req/s on Growth,
-              200 req/s on Scale, with <code className="font-mono text-foreground">429</code> and a{" "}
-              <code className="font-mono text-foreground">retry_after</code> hint when exceeded.
+              কিছু ভুল হলে সব error একইভাবে আসে — একটা <code className="font-mono text-foreground">code</code>{" "}
+              আর বোঝার মতো <code className="font-mono text-foreground">message</code>। প্রতি key-তে
+              সেকেন্ডে কতবার কল করা যায় তার সীমা আছে (Growth-এ ৬০, Scale-এ ২০০)। সীমা পার হলে{" "}
+              <code className="font-mono text-foreground">429</code> আসবে — কতক্ষণ অপেক্ষা করতে হবে সেটাও
+              বলে দেওয়া থাকে।
             </p>
             <Code
               title="Error response"
