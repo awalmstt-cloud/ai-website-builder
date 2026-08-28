@@ -290,8 +290,9 @@ print(res.json())`,
 
           <Section id="auth" kicker="Security" title="Authentication">
             <p>
-              Every request carries a Bearer token. Keys are scoped per workspace and can be
-              rotated or revoked at any time without touching your code.
+              প্রতিটা request-এর সাথে আপনার API key পাঠাতে হয় <code className="font-mono text-foreground">Authorization</code>{" "}
+              header-এ। key হারিয়ে গেলে বা চাইলে যেকোনো সময় নতুন key বানাতে বা পুরোনোটা বন্ধ করতে
+              পারবেন — কোড বদলাতে হবে না।
             </p>
             <Method method="GET" path="https://api.safewa.dev/v1/whoami" />
             <Code
@@ -301,16 +302,16 @@ print(res.json())`,
               footer='{ "workspace": "acme-shop", "plan": "growth" }'
             />
             <p className="glass-card rounded-xl border-l-2 border-l-primary px-4 py-3 text-xs">
-              Never ship a live key in a mobile app or browser bundle. Proxy calls through your own
-              backend, or use scoped webhooks for read-only data.
+              সতর্কতা: live key কখনো মোবাইল অ্যাপ বা ব্রাউজারে রাখবেন না — সবাই দেখে ফেলতে পারবে।
+              সবসময় নিজের backend থেকে কল করুন।
             </p>
           </Section>
 
           <Section id="sessions" kicker="Connections" title="Sessions & QR linking">
             <p>
-              A session is one connected WhatsApp number. Create it, poll for the QR image, scan it
-              from the phone, and the session goes live and stays warm — reconnecting on its own if
-              the device sleeps.
+              মনে করুন একটা session = একটা WhatsApp নম্বর। session বানান, QR ছবিটা নিন, ফোনের
+              WhatsApp থেকে স্ক্যান করুন — ব্যস, কানেক্ট হয়ে গেছে। ফোন ঘুমিয়ে গেলেও session নিজে
+              নিজে আবার জুড়ে যায়।
             </p>
             <Method method="POST" path="/v1/sessions" />
             <CodeTabs
@@ -363,9 +364,9 @@ qr = requests.get(
             />
             <ul className="space-y-2 text-sm">
               {[
-                "QR codes expire after 60 seconds — request a fresh one on expiry.",
-                "One number = one session. Sessions are isolated with their own webhook target.",
-                "State events (linked, dropped, reconnected) arrive on your webhook in real time.",
+                "QR কোড ৬০ সেকেন্ড পরে মেয়াদ শেষ হয় — নতুন করে চাইলে আরেকটা নিয়ে নিন।",
+                "একটা নম্বর = একটা session। প্রতিটা session আলাদা, নিজের webhook URL সহ।",
+                "কানেক্ট/ডিসকানেক্ট হলে সাথে সাথেই আপনার webhook-এ খবর চলে আসবে।",
               ].map((t) => (
                 <li key={t} className="flex gap-3">
                   <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-primary" />
