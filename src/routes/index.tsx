@@ -157,61 +157,73 @@ function Landing() {
       <AuroraBackground />
       <SiteNav />
 
-      {/* HERO */}
-      <section className="relative px-6 pt-20 pb-24 text-center md:pt-28">
-        <div className="rise-in mx-auto max-w-3xl">
-          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs text-muted-foreground">
-            <span className="size-1.5 rounded-full bg-primary" />
-            New — AI voice-note replies are live
-          </span>
+      {/* HERO — content boxed in a single glass panel */}
+      <section className="relative px-6 pt-20 pb-24 md:pt-28">
+        <div className="rise-in glass-card relative mx-auto max-w-5xl overflow-hidden rounded-[2rem] px-6 py-14 text-center md:px-12 md:py-20">
+          {/* soft glow inside the panel */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(70% 60% at 50% 0%, oklch(0.79 0.19 160 / 12%) 0%, transparent 70%)",
+            }}
+          />
 
-          <h1 className="mt-8 font-display text-5xl leading-[1.05] font-bold tracking-tight md:text-7xl">
-            WhatsApp that answers
-            <br />
-            <span className="bg-gradient-to-r from-primary via-white to-primary bg-clip-text text-transparent">
-              before you do
+          <div className="relative mx-auto max-w-3xl">
+            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs text-muted-foreground">
+              <span className="size-1.5 rounded-full bg-primary" />
+              SafeWA AI automation OS for WhatsApp
             </span>
-          </h1>
 
-          <p className="mx-auto mt-6 max-w-xl text-base text-muted-foreground md:text-lg">
-            One API for sessions, media, groups and channels — with an AI layer that replies in
-            your customer&apos;s language, in under a second.
-          </p>
+            <h1 className="mt-8 font-display text-5xl leading-[1.05] font-bold tracking-tight md:text-7xl">
+              WhatsApp that answers
+              <br />
+              <span className="bg-gradient-to-r from-primary via-white to-primary bg-clip-text text-transparent">
+                before you do
+              </span>
+            </h1>
 
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-            <Link
-              to="/register"
-              className="glow-ring inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5"
-            >
-              Start free trial <ArrowRight className="size-4" />
-            </Link>
-            <a
-              href="#platform"
-              className="rounded-full border border-border px-6 py-3 text-sm font-semibold transition-colors hover:bg-surface"
-            >
-              See the API
-            </a>
+            <p className="mx-auto mt-6 max-w-xl text-base text-muted-foreground md:text-lg">
+              QR sessions, webhooks, API sending, and AI replies — wrapped in safety controls so
+              automation feels fast, polished, and production-ready.
+            </p>
+
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+              <Link
+                to="/register"
+                className="glow-ring inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5"
+              >
+                Start free trial <ArrowRight className="size-4" />
+              </Link>
+              <Link
+                to="/docs"
+                className="rounded-full border border-border px-6 py-3 text-sm font-semibold transition-colors hover:bg-surface"
+              >
+                View API docs
+              </Link>
+            </div>
+
+            <ul className="mt-8 flex flex-wrap items-center justify-center gap-2.5 text-xs text-muted-foreground">
+              {[
+                { icon: QrCode, label: "QR connect" },
+                { icon: Send, label: "One API" },
+                { icon: Bot, label: "AI replies" },
+                { icon: ShieldCheck, label: "Safety guard" },
+              ].map((p) => (
+                <li
+                  key={p.label}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1.5"
+                >
+                  <p.icon className="size-3.5 text-primary" /> {p.label}
+                </li>
+              ))}
+            </ul>
           </div>
-
-          <ul className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-muted-foreground">
-            {["No credit card", "3-day trial", "Cancel anytime"].map((t) => (
-              <li key={t} className="inline-flex items-center gap-1.5">
-                <Check className="size-3.5 text-primary" /> {t}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* floating status pills */}
-        <div className="glass-card absolute top-40 left-6 hidden rounded-full px-4 py-2 font-mono text-xs text-muted-foreground lg:block">
-          AI replied · 0.4s
-        </div>
-        <div className="glass-card absolute top-64 right-8 hidden rounded-full px-4 py-2 font-mono text-xs text-primary lg:block">
-          ✓✓ delivered
         </div>
 
         {/* stats strip */}
-        <div className="glass-card mx-auto mt-16 grid max-w-3xl grid-cols-2 divide-y divide-x divide-border rounded-2xl md:grid-cols-4 md:divide-y-0">
+        <div className="glass-card mx-auto mt-10 grid max-w-3xl grid-cols-2 divide-y divide-x divide-border rounded-2xl md:grid-cols-4 md:divide-y-0">
           {stats.map((s) => (
             <div key={s.label} className="px-4 py-6">
               <p className="font-mono text-2xl font-bold text-primary">{s.value}</p>
