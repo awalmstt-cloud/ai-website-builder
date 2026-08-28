@@ -380,9 +380,12 @@ qr = requests.get(
               message and SafeWA answers incoming threads from your own data — catalogue, docs or FAQ
               — in the customer&apos;s language, usually in under a second.
             </p>
-            <Code
+            <CodeTabs
               title="Enable auto-reply on a session"
-              code={`curl -X PATCH https://api.safewa.dev/v1/sessions/support-01 \\
+              snippets={[
+                {
+                  lang: "cURL",
+                  code: `curl -X PATCH https://api.safewa.dev/v1/sessions/support-01 \\
   -H "Authorization: Bearer $SAFEWA_API_KEY" \\
   -d '{
     "ai": {
@@ -391,7 +394,40 @@ qr = requests.get(
       "knowledge": ["https://your.app/faq.json"],
       "handoff": { "min_confidence": 0.6, "notify": "+8801700000000" }
     }
-  }'`}
+  }'`,
+                },
+                {
+                  lang: "JavaScript",
+                  code: `await fetch("https://api.safewa.dev/v1/sessions/support-01", {
+  method: "PATCH",
+  headers: { Authorization: \`Bearer \${KEY}\` },
+  body: JSON.stringify({
+    ai: {
+      autoreply: true,
+      lang: "auto",
+      knowledge: ["https://your.app/faq.json"],
+      handoff: { min_confidence: 0.6, notify: "+8801700000000" },
+    },
+  }),
+});`,
+                },
+                {
+                  lang: "Python",
+                  code: `requests.patch(
+    "https://api.safewa.dev/v1/sessions/support-01",
+    headers={"Authorization": f"Bearer {KEY}"},
+    json={
+        "ai": {
+            "autoreply": True,
+            "lang": "auto",
+            "knowledge": ["https://your.app/faq.json"],
+            "handoff": {"min_confidence": 0.6,
+                        "notify": "+8801700000000"},
+        }
+    },
+)`,
+                },
+              ]}
               footer="→ AI replies stream to your webhook with tool-call logs"
             />
             <ul className="space-y-2 text-sm">
