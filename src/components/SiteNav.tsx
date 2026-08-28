@@ -2,10 +2,10 @@ import { Link } from "@tanstack/react-router";
 import { MessageSquareDot } from "lucide-react";
 
 const links = [
-  { label: "Platform", href: "#platform" },
-  { label: "How it works", href: "#how" },
-  { label: "Use cases", href: "#use-cases" },
-  { label: "Pricing", href: "#pricing" },
+  { label: "Platform", hash: "platform" },
+  { label: "How it works", hash: "how" },
+  { label: "Use cases", hash: "use-cases" },
+  { label: "Pricing", hash: "pricing" },
   { label: "Docs", to: "/docs" },
 ];
 
@@ -28,9 +28,9 @@ export function SiteNav() {
                   {l.label}
                 </Link>
               ) : (
-                <a href={l.href} className="transition-colors hover:text-foreground">
+                <Link to="/" hash={l.hash} className="transition-colors hover:text-foreground">
                   {l.label}
-                </a>
+                </Link>
               )}
             </li>
           ))}

@@ -14,6 +14,7 @@ import {
   Sparkles,
   Video,
 } from "lucide-react";
+import { WhatsAppChatDemo } from "@/components/WhatsAppChatDemo";
 import { AuroraBackground } from "@/components/AuroraBackground";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -44,7 +45,7 @@ const stats = [
   { value: "10K+", label: "Active developers" },
   { value: "50M+", label: "Messages routed" },
   { value: "99.9%", label: "Uptime SLA" },
-  { value: "0.4s", label: "Median AI reply" },
+  { value: "0.6s", label: "Median AI reply" },
 ];
 
 const steps = [
@@ -182,7 +183,7 @@ function Landing() {
                 to="/register"
                 className="glow-ring inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5"
               >
-                Start free trial <ArrowRight className="size-4" />
+                Get full access <ArrowRight className="size-4" />
               </Link>
               <Link
                 to="/docs"
@@ -331,46 +332,9 @@ function Landing() {
                   <Mic className="size-4" />
                 </span>
               </div>
-              {/* messages — WA dark wallpaper tint */}
-              <div
-                className="space-y-2 px-3 py-4 text-[13px] leading-snug"
-                style={{
-                  backgroundColor: "#0b141a",
-                  backgroundImage:
-                    "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.04) 1px, transparent 0)",
-                  backgroundSize: "18px 18px",
-                }}
-              >
-                <p className="mx-auto w-fit rounded-md bg-[#182229] px-2 py-1 text-[10px] text-white/50">
-                  Today
-                </p>
-                <div className="max-w-[82%] rounded-lg rounded-tl-none bg-[#202c33] px-2.5 py-1.5 text-white/90 shadow">
-                  Hi! Do you have the blue kurti in stock? 🙏
-                  <span className="mt-0.5 block text-right text-[10px] text-white/40">10:21</span>
-                </div>
-                <div className="ml-auto max-w-[85%] rounded-lg rounded-tr-none bg-[#005c4b] px-2.5 py-1.5 text-white shadow">
-                  Yes — 4 left in medium. Want me to reserve one for you?
-                  <span className="mt-0.5 flex items-center justify-end gap-1 text-[10px] text-white/50">
-                    10:21 <span className="text-[#53bdeb]">✓✓</span>
-                  </span>
-                </div>
-                <div className="max-w-[82%] rounded-lg rounded-tl-none bg-[#202c33] px-2.5 py-1.5 text-white/90 shadow">
-                  Please do 😊
-                  <span className="mt-0.5 block text-right text-[10px] text-white/40">10:22</span>
-                </div>
-                <div className="ml-auto max-w-[85%] rounded-lg rounded-tr-none bg-[#005c4b] px-2.5 py-1.5 text-white shadow">
-                  Done! Reserved for 24h. Order #4182 — I&apos;ll send the payment link here. 💚
-                  <span className="mt-0.5 flex items-center justify-end gap-1 text-[10px] text-white/50">
-                    10:22 <span className="text-[#53bdeb]">✓✓</span>
-                  </span>
-                </div>
-                {/* typing indicator */}
-                <div className="flex w-fit items-center gap-1 rounded-lg rounded-tl-none bg-[#202c33] px-3 py-2">
-                  <span className="size-1.5 animate-bounce rounded-full bg-white/50" />
-                  <span className="size-1.5 animate-bounce rounded-full bg-white/50 [animation-delay:150ms]" />
-                  <span className="size-1.5 animate-bounce rounded-full bg-white/50 [animation-delay:300ms]" />
-                </div>
-              </div>
+              {/* messages — live animated demo */}
+              <WhatsAppChatDemo />
+
               {/* input bar */}
               <div className="flex items-center gap-2 bg-[#0b141a] px-3 py-2.5">
                 <div className="flex flex-1 items-center gap-2 rounded-full bg-[#202c33] px-4 py-2 text-[13px] text-white/40">
@@ -383,7 +347,7 @@ function Landing() {
             </div>
             {/* floating badge */}
             <div className="glass-card absolute -right-10 top-24 hidden rounded-full px-3 py-1.5 font-mono text-[11px] text-primary md:block">
-              AI answered · 0.4s
+              AI answered · 0.6s
             </div>
           </div>
 
