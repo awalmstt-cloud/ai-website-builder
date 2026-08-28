@@ -208,16 +208,54 @@ function Docs() {
                 </li>
               ))}
             </ol>
-            <Code
+            <CodeTabs
               title="First message in 10 lines"
-              code={`curl https://api.safewa.dev/v1/messages \\
+              snippets={[
+                {
+                  lang: "cURL",
+                  code: `curl https://api.safewa.dev/v1/messages \\
   -H "Authorization: Bearer $SAFEWA_API_KEY" \\
   -d '{
     "session": "default",
     "to": "+8801700000000",
     "type": "text",
     "text": "Hello from SafeWA 👋"
-  }'`}
+  }'`,
+                },
+                {
+                  lang: "JavaScript",
+                  code: `const res = await fetch("https://api.safewa.dev/v1/messages", {
+  method: "POST",
+  headers: {
+    Authorization: \`Bearer \${process.env.SAFEWA_API_KEY}\`,
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    session: "default",
+    to: "+8801700000000",
+    type: "text",
+    text: "Hello from SafeWA 👋",
+  }),
+});
+console.log(await res.json());`,
+                },
+                {
+                  lang: "Python",
+                  code: `import os, requests
+
+res = requests.post(
+    "https://api.safewa.dev/v1/messages",
+    headers={"Authorization": f"Bearer {os.environ['SAFEWA_API_KEY']}"},
+    json={
+        "session": "default",
+        "to": "+8801700000000",
+        "type": "text",
+        "text": "Hello from SafeWA 👋",
+    },
+)
+print(res.json())`,
+                },
+              ]}
               footer="→ 201 Created · message queued"
             />
           </Section>
@@ -247,15 +285,52 @@ function Docs() {
               the device sleeps.
             </p>
             <Method method="POST" path="/v1/sessions" />
-            <Code
+            <CodeTabs
               title="Create and link a session"
-              code={`curl -X POST https://api.safewa.dev/v1/sessions \\
+              snippets={[
+                {
+                  lang: "cURL",
+                  code: `curl -X POST https://api.safewa.dev/v1/sessions \\
   -H "Authorization: Bearer $SAFEWA_API_KEY" \\
   -d '{ "name": "support-01", "webhook": "https://your.app/hooks/safewa" }'
 
 # then fetch the QR
 curl https://api.safewa.dev/v1/sessions/support-01/qr \\
-  -H "Authorization: Bearer $SAFEWA_API_KEY"`}
+  -H "Authorization: Bearer $SAFEWA_API_KEY"`,
+                },
+                {
+                  lang: "JavaScript",
+                  code: `await fetch("https://api.safewa.dev/v1/sessions", {
+  method: "POST",
+  headers: { Authorization: \`Bearer \${KEY}\` },
+  body: JSON.stringify({
+    name: "support-01",
+    webhook: "https://your.app/hooks/safewa",
+  }),
+});
+
+// then fetch the QR
+const qr = await fetch(
+  "https://api.safewa.dev/v1/sessions/support-01/qr",
+  { headers: { Authorization: \`Bearer \${KEY}\` } }
+).then((r) => r.json());`,
+                },
+                {
+                  lang: "Python",
+                  code: `requests.post(
+    "https://api.safewa.dev/v1/sessions",
+    headers={"Authorization": f"Bearer {KEY}"},
+    json={"name": "support-01",
+          "webhook": "https://your.app/hooks/safewa"},
+)
+
+# then fetch the QR
+qr = requests.get(
+    "https://api.safewa.dev/v1/sessions/support-01/qr",
+    headers={"Authorization": f"Bearer {KEY}"},
+).json()`,
+                },
+              ]}
               footer='{ "qr": "data:image/png;base64,…", "expires_in": 60 }'
             />
             <ul className="space-y-2 text-sm">
