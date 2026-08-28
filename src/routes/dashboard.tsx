@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import {
   Activity,
+  BookOpen,
   Bot,
   Copy,
   Gauge,
