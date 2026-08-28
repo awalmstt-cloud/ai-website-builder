@@ -8,16 +8,16 @@ export function AuroraBackground() {
       {/* base wash */}
       <div className="absolute inset-0 bg-background" />
 
-      {/* vertical glow column rising from lower centre */}
+      {/* vertical glow column rising from lower centre — icy white */}
       <div
         className="absolute inset-x-0 bottom-[-20%] h-[110%]"
         style={{
           background:
-            "radial-gradient(58% 46% at 50% 82%, var(--glow-white) 0%, var(--glow) 32%, transparent 72%)",
+            "radial-gradient(58% 46% at 50% 82%, oklch(0.99 0.01 240 / 45%) 0%, oklch(0.92 0.03 240 / 22%) 32%, transparent 72%)",
         }}
       />
 
-      {/* organic blobs */}
+      {/* organic blobs — icy white over slate */}
       <svg
         className="absolute inset-0 h-full w-full"
         viewBox="0 0 1440 900"
@@ -25,13 +25,13 @@ export function AuroraBackground() {
       >
         <defs>
           <radialGradient id="blobL" cx="30%" cy="60%" r="70%">
-            <stop offset="0%" stopColor="oklch(0.96 0.06 155)" stopOpacity="0.5" />
-            <stop offset="45%" stopColor="oklch(0.78 0.19 158)" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="oklch(0.5 0.14 165)" stopOpacity="0" />
+            <stop offset="0%" stopColor="oklch(0.98 0.015 240)" stopOpacity="0.45" />
+            <stop offset="45%" stopColor="oklch(0.88 0.03 240)" stopOpacity="0.28" />
+            <stop offset="100%" stopColor="oklch(0.7 0.03 250)" stopOpacity="0" />
           </radialGradient>
           <radialGradient id="blobR" cx="70%" cy="40%" r="70%">
-            <stop offset="0%" stopColor="oklch(0.94 0.05 150)" stopOpacity="0.35" />
-            <stop offset="100%" stopColor="oklch(0.45 0.12 168)" stopOpacity="0" />
+            <stop offset="0%" stopColor="oklch(0.97 0.02 240)" stopOpacity="0.32" />
+            <stop offset="100%" stopColor="oklch(0.68 0.025 250)" stopOpacity="0" />
           </radialGradient>
         </defs>
 
@@ -48,11 +48,11 @@ export function AuroraBackground() {
           />
         </g>
 
-        {/* hairline arcs */}
-        <g fill="none" stroke="oklch(0.85 0.16 158)" strokeOpacity="0.16">
+        {/* hairline arcs — icy white */}
+        <g fill="none" stroke="oklch(0.96 0.02 240)" strokeOpacity="0.14">
           <path d="M-100 900C120 620 300 420 700 380s740 120 900 420" />
           <path d="M-60 980C200 700 420 520 760 500s660 180 820 460" />
-          <path d="M120 1000C300 780 520 640 800 620" strokeOpacity="0.1" />
+          <path d="M120 1000C300 780 520 640 800 620" strokeOpacity="0.09" />
         </g>
       </svg>
 
