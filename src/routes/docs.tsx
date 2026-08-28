@@ -100,7 +100,7 @@ function CodeTabs({
         </div>
       </div>
       <pre className="overflow-x-auto p-5 font-mono text-xs leading-relaxed text-muted-foreground">
-        <code>{snippets[active].code}</code>
+        <code>{(snippets[active] ?? snippets[0])?.code}</code>
       </pre>
       {footer ? (
         <div className="border-t border-border px-5 py-3 font-mono text-xs text-primary">{footer}</div>
