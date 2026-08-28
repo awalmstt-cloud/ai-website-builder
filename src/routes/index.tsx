@@ -97,15 +97,17 @@ const useCases = [
 const plans = [
   {
     name: "Starter",
-    price: "$0",
-    period: "for 3 days",
-    features: ["1 session", "1,000 messages", "AI replies (text)", "Community support"],
-    cta: "Start free",
+    usd: "$4.99",
+    bdt: "৳499",
+    period: "per month",
+    features: ["1 session", "10,000 messages", "AI replies (text)", "Community support"],
+    cta: "Get Starter",
     featured: false,
   },
   {
     name: "Growth",
-    price: "$29",
+    usd: "$14.99",
+    bdt: "৳1,499",
     period: "per month",
     features: [
       "5 sessions",
@@ -119,19 +121,21 @@ const plans = [
   },
   {
     name: "Scale",
-    price: "$99",
+    usd: "$49.99",
+    bdt: "৳4,999",
     period: "per month",
     features: [
       "Unlimited sessions",
+      "Unlimited AI replies",
       "Priority routing",
       "Custom AI knowledge base",
-      "99.9% uptime SLA",
-      "Dedicated engineer",
+      "99.9% uptime SLA + dedicated engineer",
     ],
-    cta: "Talk to us",
+    cta: "Get Scale",
     featured: false,
   },
 ];
+
 
 const faqs = [
   {
