@@ -165,10 +165,12 @@ function Landing() {
             New — AI voice-note replies are live
           </span>
 
-          <h1 className="mt-8 font-display text-5xl leading-[1.05] font-bold md:text-7xl">
+          <h1 className="mt-8 font-display text-5xl leading-[1.05] font-bold tracking-tight md:text-7xl">
             WhatsApp that answers
             <br />
-            <span className="text-primary">before you do</span>
+            <span className="bg-gradient-to-r from-primary via-emerald-300 to-primary bg-clip-text text-transparent">
+              before you do
+            </span>
           </h1>
 
           <p className="mx-auto mt-6 max-w-xl text-base text-muted-foreground md:text-lg">
