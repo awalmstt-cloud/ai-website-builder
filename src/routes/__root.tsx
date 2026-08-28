@@ -77,13 +77,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "SafeWA — WhatsApp API with built-in AI replies" },
+      { title: "SafeWachat — WhatsApp API with built-in AI replies" },
       {
         name: "description",
         content:
           "One API for WhatsApp sessions, media, groups and channels — with AI auto-replies in under a second.",
       },
-      { property: "og:title", content: "SafeWA — WhatsApp API with built-in AI replies" },
+      { property: "og:title", content: "SafeWachat — WhatsApp API with built-in AI replies" },
       {
         property: "og:description",
         content:
