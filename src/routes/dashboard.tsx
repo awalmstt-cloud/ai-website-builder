@@ -106,7 +106,15 @@ function DashboardPage() {
                 {item.label}
               </button>
             ))}
+            <Link
+              to="/docs"
+              className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <BookOpen className="size-4" /> Docs
+            </Link>
           </nav>
+
+
 
           <div className="mt-auto">
             <div className="glass-card rounded-2xl p-3 text-xs text-muted-foreground">
