@@ -21,13 +21,13 @@ import { SiteFooter } from "@/components/SiteFooter";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Replyloop — WhatsApp API with built-in AI replies" },
+      { title: "SafeWA — WhatsApp API with built-in AI replies" },
       {
         name: "description",
         content:
           "Connect a WhatsApp session in seconds, send any message type through one API, and let AI answer customers in their own language. No per-message fees.",
       },
-      { property: "og:title", content: "Replyloop — WhatsApp API with built-in AI replies" },
+      { property: "og:title", content: "SafeWA — WhatsApp API with built-in AI replies" },
       {
         property: "og:description",
         content:
@@ -255,7 +255,7 @@ function Landing() {
               <p className="ml-2 font-mono text-xs text-muted-foreground">POST /v1/messages</p>
             </div>
             <pre className="overflow-x-auto p-5 font-mono text-xs leading-relaxed text-muted-foreground">
-              <code>{`curl https://api.replyloop.dev/v1/messages \\
+              <code>{`curl https://api.safewa.dev/v1/messages \\
   -H "Authorization: Bearer $API_KEY" \\
   -d '{
     "session": "support-01",
@@ -308,7 +308,7 @@ function Landing() {
                 <Bot className="size-4" />
               </span>
               <div>
-                <p className="text-sm font-semibold">Replyloop assistant</p>
+                <p className="text-sm font-semibold">SafeWA assistant</p>
                 <p className="text-xs text-primary">online · typing instantly</p>
               </div>
             </div>

@@ -20,7 +20,7 @@ export function AuthLayout({
           <span className="grid size-8 place-items-center rounded-full bg-primary text-primary-foreground">
             <MessageSquareDot className="size-4" />
           </span>
-          Replyloop
+          SafeWA
         </Link>
         <h2 className="mt-10 font-display text-4xl leading-tight font-bold">
           WhatsApp that answers
@@ -43,7 +43,7 @@ export function AuthLayout({
           <span className="grid size-8 place-items-center rounded-full bg-primary text-primary-foreground">
             <MessageSquareDot className="size-4" />
           </span>
-          Replyloop
+          SafeWA
         </Link>
         <h1 className="font-display text-2xl font-bold">{title}</h1>
         <p className="mt-1.5 text-sm text-muted-foreground">{subtitle}</p>
