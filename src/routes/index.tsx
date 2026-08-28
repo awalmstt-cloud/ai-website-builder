@@ -157,30 +157,26 @@ function Landing() {
       <AuroraBackground />
       <SiteNav />
 
-      {/* HERO — content boxed in a single glass panel */}
+      {/* HERO — open layout, no box */}
       <section className="relative px-6 pt-20 pb-24 md:pt-28">
-        <div className="rise-in glass-card relative mx-auto max-w-5xl overflow-hidden rounded-[2rem] px-6 py-14 text-center md:px-12 md:py-20">
-          {/* soft glow inside the panel */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(70% 60% at 50% 0%, oklch(0.79 0.19 160 / 12%) 0%, transparent 70%)",
-            }}
-          />
-
+        <div className="rise-in relative mx-auto max-w-5xl text-center">
           <div className="relative mx-auto max-w-3xl">
             <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs text-muted-foreground">
               <span className="size-1.5 rounded-full bg-primary" />
               SafeWA AI automation OS for WhatsApp
             </span>
 
-            <h1 className="mt-8 font-display text-5xl leading-[1.05] font-bold tracking-tight md:text-7xl">
-              WhatsApp that answers
+            <h1 className="mt-8 font-display text-5xl leading-[1.05] font-bold tracking-tight text-foreground md:text-7xl">
+              Turn WhatsApp into
               <br />
-              <span className="bg-gradient-to-r from-primary via-white to-primary bg-clip-text text-transparent">
-                before you do
+              <span
+                className="bg-clip-text text-transparent"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(90deg, oklch(0.80 0.19 160) 0%, oklch(0.78 0.15 210) 55%, oklch(0.85 0.10 220) 100%)",
+                }}
+              >
+                an AI workflow engine.
               </span>
             </h1>
 
