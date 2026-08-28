@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import {
   ArrowRight,
   BellRing,
@@ -57,6 +58,49 @@ function Code({ title, code, footer }: { title: string; code: string; footer?: s
       </div>
       <pre className="overflow-x-auto p-5 font-mono text-xs leading-relaxed text-muted-foreground">
         <code>{code}</code>
+      </pre>
+      {footer ? (
+        <div className="border-t border-border px-5 py-3 font-mono text-xs text-primary">{footer}</div>
+      ) : null}
+    </div>
+  );
+}
+
+type Snippet = { lang: string; code: string };
+
+function CodeTabs({
+  title,
+  snippets,
+  footer,
+}: {
+  title: string;
+  snippets: Snippet[];
+  footer?: string;
+}) {
+  const [active, setActive] = useState(0);
+  return (
+    <div className="glass-card overflow-hidden rounded-2xl">
+      <div className="flex flex-wrap items-center gap-2 border-b border-border px-4 py-3">
+        <p className="font-mono text-xs text-muted-foreground">{title}</p>
+        <div className="ml-auto flex flex-wrap gap-1">
+          {snippets.map((s, i) => (
+            <button
+              key={s.lang}
+              type="button"
+              onClick={() => setActive(i)}
+              className={`rounded-full px-3 py-1 font-mono text-[11px] transition-colors ${
+                i === active
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-surface text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {s.lang}
+            </button>
+          ))}
+        </div>
+      </div>
+      <pre className="overflow-x-auto p-5 font-mono text-xs leading-relaxed text-muted-foreground">
+        <code>{snippets[active].code}</code>
       </pre>
       {footer ? (
         <div className="border-t border-border px-5 py-3 font-mono text-xs text-primary">{footer}</div>
