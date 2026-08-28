@@ -42,21 +42,21 @@
 :root {
   --radius: 0.9rem;
   --background: oklch(0.18 0.015 255);
-  --foreground: oklch(0.97 0.005 240);
+  --foreground: oklch(0.965 0.004 240);
   --card: oklch(0.225 0.016 255);
-  --card-foreground: oklch(0.97 0.005 240);
+  --card-foreground: oklch(0.965 0.004 240);
   --popover: oklch(0.225 0.016 255);
-  --popover-foreground: oklch(0.97 0.005 240);
+  --popover-foreground: oklch(0.965 0.004 240);
   --primary: oklch(0.79 0.19 160);
   --primary-foreground: oklch(0.17 0.03 160);
   --secondary: oklch(0.28 0.02 255);
-  --secondary-foreground: oklch(0.97 0.005 240);
+  --secondary-foreground: oklch(0.965 0.004 240);
   --muted: oklch(0.28 0.02 255);
-  --muted-foreground: oklch(0.72 0.015 245);
+  --muted-foreground: oklch(0.62 0.025 245);
   --accent: oklch(0.88 0.2 135);
   --accent-foreground: oklch(0.17 0.03 160);
   --destructive: oklch(0.63 0.21 25);
-  --destructive-foreground: oklch(0.97 0.005 240);
+  --destructive-foreground: oklch(0.965 0.004 240);
   --border: oklch(0.99 0.005 240 / 12%);
   --input: oklch(0.99 0.005 240 / 16%);
   --ring: oklch(0.79 0.19 160 / 55%);
