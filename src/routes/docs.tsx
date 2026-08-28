@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import {
   ArrowRight,
   BellRing,
@@ -57,6 +58,49 @@ function Code({ title, code, footer }: { title: string; code: string; footer?: s
       </div>
       <pre className="overflow-x-auto p-5 font-mono text-xs leading-relaxed text-muted-foreground">
         <code>{code}</code>
+      </pre>
+      {footer ? (
+        <div className="border-t border-border px-5 py-3 font-mono text-xs text-primary">{footer}</div>
+      ) : null}
+    </div>
+  );
+}
+
+type Snippet = { lang: string; code: string };
+
+function CodeTabs({
+  title,
+  snippets,
+  footer,
+}: {
+  title: string;
+  snippets: Snippet[];
+  footer?: string;
+}) {
+  const [active, setActive] = useState(0);
+  return (
+    <div className="glass-card overflow-hidden rounded-2xl">
+      <div className="flex flex-wrap items-center gap-2 border-b border-border px-4 py-3">
+        <p className="font-mono text-xs text-muted-foreground">{title}</p>
+        <div className="ml-auto flex flex-wrap gap-1">
+          {snippets.map((s, i) => (
+            <button
+              key={s.lang}
+              type="button"
+              onClick={() => setActive(i)}
+              className={`rounded-full px-3 py-1 font-mono text-[11px] transition-colors ${
+                i === active
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-surface text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {s.lang}
+            </button>
+          ))}
+        </div>
+      </div>
+      <pre className="overflow-x-auto p-5 font-mono text-xs leading-relaxed text-muted-foreground">
+        <code>{(snippets[active] ?? snippets[0])?.code}</code>
       </pre>
       {footer ? (
         <div className="border-t border-border px-5 py-3 font-mono text-xs text-primary">{footer}</div>
@@ -164,16 +208,54 @@ function Docs() {
                 </li>
               ))}
             </ol>
-            <Code
+            <CodeTabs
               title="First message in 10 lines"
-              code={`curl https://api.safewa.dev/v1/messages \\
+              snippets={[
+                {
+                  lang: "cURL",
+                  code: `curl https://api.safewa.dev/v1/messages \\
   -H "Authorization: Bearer $SAFEWA_API_KEY" \\
   -d '{
     "session": "default",
     "to": "+8801700000000",
     "type": "text",
     "text": "Hello from SafeWA 👋"
-  }'`}
+  }'`,
+                },
+                {
+                  lang: "JavaScript",
+                  code: `const res = await fetch("https://api.safewa.dev/v1/messages", {
+  method: "POST",
+  headers: {
+    Authorization: \`Bearer \${process.env.SAFEWA_API_KEY}\`,
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    session: "default",
+    to: "+8801700000000",
+    type: "text",
+    text: "Hello from SafeWA 👋",
+  }),
+});
+console.log(await res.json());`,
+                },
+                {
+                  lang: "Python",
+                  code: `import os, requests
+
+res = requests.post(
+    "https://api.safewa.dev/v1/messages",
+    headers={"Authorization": f"Bearer {os.environ['SAFEWA_API_KEY']}"},
+    json={
+        "session": "default",
+        "to": "+8801700000000",
+        "type": "text",
+        "text": "Hello from SafeWA 👋",
+    },
+)
+print(res.json())`,
+                },
+              ]}
               footer="→ 201 Created · message queued"
             />
           </Section>
@@ -203,15 +285,52 @@ function Docs() {
               the device sleeps.
             </p>
             <Method method="POST" path="/v1/sessions" />
-            <Code
+            <CodeTabs
               title="Create and link a session"
-              code={`curl -X POST https://api.safewa.dev/v1/sessions \\
+              snippets={[
+                {
+                  lang: "cURL",
+                  code: `curl -X POST https://api.safewa.dev/v1/sessions \\
   -H "Authorization: Bearer $SAFEWA_API_KEY" \\
   -d '{ "name": "support-01", "webhook": "https://your.app/hooks/safewa" }'
 
 # then fetch the QR
 curl https://api.safewa.dev/v1/sessions/support-01/qr \\
-  -H "Authorization: Bearer $SAFEWA_API_KEY"`}
+  -H "Authorization: Bearer $SAFEWA_API_KEY"`,
+                },
+                {
+                  lang: "JavaScript",
+                  code: `await fetch("https://api.safewa.dev/v1/sessions", {
+  method: "POST",
+  headers: { Authorization: \`Bearer \${KEY}\` },
+  body: JSON.stringify({
+    name: "support-01",
+    webhook: "https://your.app/hooks/safewa",
+  }),
+});
+
+// then fetch the QR
+const qr = await fetch(
+  "https://api.safewa.dev/v1/sessions/support-01/qr",
+  { headers: { Authorization: \`Bearer \${KEY}\` } }
+).then((r) => r.json());`,
+                },
+                {
+                  lang: "Python",
+                  code: `requests.post(
+    "https://api.safewa.dev/v1/sessions",
+    headers={"Authorization": f"Bearer {KEY}"},
+    json={"name": "support-01",
+          "webhook": "https://your.app/hooks/safewa"},
+)
+
+# then fetch the QR
+qr = requests.get(
+    "https://api.safewa.dev/v1/sessions/support-01/qr",
+    headers={"Authorization": f"Bearer {KEY}"},
+).json()`,
+                },
+              ]}
               footer='{ "qr": "data:image/png;base64,…", "expires_in": 60 }'
             />
             <ul className="space-y-2 text-sm">
@@ -261,9 +380,12 @@ curl https://api.safewa.dev/v1/sessions/support-01/qr \\
               message and SafeWA answers incoming threads from your own data — catalogue, docs or FAQ
               — in the customer&apos;s language, usually in under a second.
             </p>
-            <Code
+            <CodeTabs
               title="Enable auto-reply on a session"
-              code={`curl -X PATCH https://api.safewa.dev/v1/sessions/support-01 \\
+              snippets={[
+                {
+                  lang: "cURL",
+                  code: `curl -X PATCH https://api.safewa.dev/v1/sessions/support-01 \\
   -H "Authorization: Bearer $SAFEWA_API_KEY" \\
   -d '{
     "ai": {
@@ -272,7 +394,40 @@ curl https://api.safewa.dev/v1/sessions/support-01/qr \\
       "knowledge": ["https://your.app/faq.json"],
       "handoff": { "min_confidence": 0.6, "notify": "+8801700000000" }
     }
-  }'`}
+  }'`,
+                },
+                {
+                  lang: "JavaScript",
+                  code: `await fetch("https://api.safewa.dev/v1/sessions/support-01", {
+  method: "PATCH",
+  headers: { Authorization: \`Bearer \${KEY}\` },
+  body: JSON.stringify({
+    ai: {
+      autoreply: true,
+      lang: "auto",
+      knowledge: ["https://your.app/faq.json"],
+      handoff: { min_confidence: 0.6, notify: "+8801700000000" },
+    },
+  }),
+});`,
+                },
+                {
+                  lang: "Python",
+                  code: `requests.patch(
+    "https://api.safewa.dev/v1/sessions/support-01",
+    headers={"Authorization": f"Bearer {KEY}"},
+    json={
+        "ai": {
+            "autoreply": True,
+            "lang": "auto",
+            "knowledge": ["https://your.app/faq.json"],
+            "handoff": {"min_confidence": 0.6,
+                        "notify": "+8801700000000"},
+        }
+    },
+)`,
+                },
+              ]}
               footer="→ AI replies stream to your webhook with tool-call logs"
             />
             <ul className="space-y-2 text-sm">
