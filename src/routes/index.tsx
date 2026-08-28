@@ -21,13 +21,13 @@ import { SiteFooter } from "@/components/SiteFooter";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Replyloop — WhatsApp API with built-in AI replies" },
+      { title: "SafeWA — WhatsApp API with built-in AI replies" },
       {
         name: "description",
         content:
           "Connect a WhatsApp session in seconds, send any message type through one API, and let AI answer customers in their own language. No per-message fees.",
       },
-      { property: "og:title", content: "Replyloop — WhatsApp API with built-in AI replies" },
+      { property: "og:title", content: "SafeWA — WhatsApp API with built-in AI replies" },
       {
         property: "og:description",
         content:
@@ -165,10 +165,12 @@ function Landing() {
             New — AI voice-note replies are live
           </span>
 
-          <h1 className="mt-8 font-display text-5xl leading-[1.05] font-bold md:text-7xl">
+          <h1 className="mt-8 font-display text-5xl leading-[1.05] font-bold tracking-tight md:text-7xl">
             WhatsApp that answers
             <br />
-            <span className="text-primary">before you do</span>
+            <span className="bg-gradient-to-r from-primary via-emerald-300 to-primary bg-clip-text text-transparent">
+              before you do
+            </span>
           </h1>
 
           <p className="mx-auto mt-6 max-w-xl text-base text-muted-foreground md:text-lg">
@@ -255,7 +257,7 @@ function Landing() {
               <p className="ml-2 font-mono text-xs text-muted-foreground">POST /v1/messages</p>
             </div>
             <pre className="overflow-x-auto p-5 font-mono text-xs leading-relaxed text-muted-foreground">
-              <code>{`curl https://api.replyloop.dev/v1/messages \\
+              <code>{`curl https://api.safewa.dev/v1/messages \\
   -H "Authorization: Bearer $API_KEY" \\
   -d '{
     "session": "support-01",
@@ -299,36 +301,89 @@ function Landing() {
         </div>
       </section>
 
-      {/* CHAT MOCK */}
+      {/* CHAT MOCK — WhatsApp messenger style */}
       <section className="px-6 py-24">
         <div className="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-2">
-          <div className="glass-card mx-auto w-full max-w-sm rounded-3xl p-4">
-            <div className="flex items-center gap-3 border-b border-border pb-3">
-              <span className="grid size-9 place-items-center rounded-full bg-primary text-primary-foreground">
-                <Bot className="size-4" />
-              </span>
-              <div>
-                <p className="text-sm font-semibold">Replyloop assistant</p>
-                <p className="text-xs text-primary">online · typing instantly</p>
+          <div className="relative mx-auto w-full max-w-[320px]">
+            {/* phone frame */}
+            <div className="glow-ring overflow-hidden rounded-[2.5rem] border border-border bg-[#0b141a] shadow-2xl">
+              {/* status bar */}
+              <div className="flex items-center justify-between bg-[#202c33] px-6 pt-3 pb-1 text-[10px] text-white/70">
+                <span>10:22</span>
+                <span className="flex items-center gap-1">
+                  <span className="inline-block h-1.5 w-3 rounded-[1px] bg-white/60" />
+                  <span className="inline-block h-1.5 w-3 rounded-[1px] bg-white/60" />
+                  <span className="inline-block h-2 w-4 rounded-[2px] border border-white/60" />
+                </span>
+              </div>
+              {/* chat header */}
+              <div className="flex items-center gap-3 bg-[#202c33] px-3 py-2.5">
+                <span className="text-white/80">←</span>
+                <span className="grid size-9 place-items-center rounded-full bg-[#00a884] text-white">
+                  <Bot className="size-4" />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-sm font-semibold text-white">Maya&apos;s Boutique</p>
+                  <p className="text-[11px] text-[#00a884]">online</p>
+                </div>
+                <span className="flex gap-4 text-white/60">
+                  <Video className="size-4" />
+                  <Mic className="size-4" />
+                </span>
+              </div>
+              {/* messages — WA dark wallpaper tint */}
+              <div
+                className="space-y-2 px-3 py-4 text-[13px] leading-snug"
+                style={{
+                  backgroundColor: "#0b141a",
+                  backgroundImage:
+                    "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.04) 1px, transparent 0)",
+                  backgroundSize: "18px 18px",
+                }}
+              >
+                <p className="mx-auto w-fit rounded-md bg-[#182229] px-2 py-1 text-[10px] text-white/50">
+                  Today
+                </p>
+                <div className="max-w-[82%] rounded-lg rounded-tl-none bg-[#202c33] px-2.5 py-1.5 text-white/90 shadow">
+                  Hi! Do you have the blue kurti in stock? 🙏
+                  <span className="mt-0.5 block text-right text-[10px] text-white/40">10:21</span>
+                </div>
+                <div className="ml-auto max-w-[85%] rounded-lg rounded-tr-none bg-[#005c4b] px-2.5 py-1.5 text-white shadow">
+                  Yes — 4 left in medium. Want me to reserve one for you?
+                  <span className="mt-0.5 flex items-center justify-end gap-1 text-[10px] text-white/50">
+                    10:21 <span className="text-[#53bdeb]">✓✓</span>
+                  </span>
+                </div>
+                <div className="max-w-[82%] rounded-lg rounded-tl-none bg-[#202c33] px-2.5 py-1.5 text-white/90 shadow">
+                  Please do 😊
+                  <span className="mt-0.5 block text-right text-[10px] text-white/40">10:22</span>
+                </div>
+                <div className="ml-auto max-w-[85%] rounded-lg rounded-tr-none bg-[#005c4b] px-2.5 py-1.5 text-white shadow">
+                  Done! Reserved for 24h. Order #4182 — I&apos;ll send the payment link here. 💚
+                  <span className="mt-0.5 flex items-center justify-end gap-1 text-[10px] text-white/50">
+                    10:22 <span className="text-[#53bdeb]">✓✓</span>
+                  </span>
+                </div>
+                {/* typing indicator */}
+                <div className="flex w-fit items-center gap-1 rounded-lg rounded-tl-none bg-[#202c33] px-3 py-2">
+                  <span className="size-1.5 animate-bounce rounded-full bg-white/50" />
+                  <span className="size-1.5 animate-bounce rounded-full bg-white/50 [animation-delay:150ms]" />
+                  <span className="size-1.5 animate-bounce rounded-full bg-white/50 [animation-delay:300ms]" />
+                </div>
+              </div>
+              {/* input bar */}
+              <div className="flex items-center gap-2 bg-[#0b141a] px-3 py-2.5">
+                <div className="flex flex-1 items-center gap-2 rounded-full bg-[#202c33] px-4 py-2 text-[13px] text-white/40">
+                  Message
+                </div>
+                <span className="grid size-9 place-items-center rounded-full bg-[#00a884] text-white">
+                  <Mic className="size-4" />
+                </span>
               </div>
             </div>
-            <div className="space-y-3 py-4 text-sm">
-              <div className="max-w-[80%] rounded-2xl rounded-tl-sm bg-secondary px-3 py-2">
-                Hi! Do you have this in stock? 🙏
-                <span className="mt-1 block text-[10px] text-muted-foreground">10:21</span>
-              </div>
-              <div className="ml-auto max-w-[85%] rounded-2xl rounded-tr-sm bg-primary px-3 py-2 text-primary-foreground">
-                Yes — 4 left in medium. Want me to reserve one for you?
-                <span className="mt-1 block text-right text-[10px] opacity-70">10:21 ✓✓</span>
-              </div>
-              <div className="max-w-[80%] rounded-2xl rounded-tl-sm bg-secondary px-3 py-2">
-                Please do 😊
-                <span className="mt-1 block text-[10px] text-muted-foreground">10:22</span>
-              </div>
-              <div className="ml-auto max-w-[85%] rounded-2xl rounded-tr-sm bg-primary px-3 py-2 text-primary-foreground">
-                Reserved for 24h. Order #4182 — pay here when ready.
-                <span className="mt-1 block text-right text-[10px] opacity-70">10:22 ✓✓</span>
-              </div>
+            {/* floating badge */}
+            <div className="glass-card absolute -right-10 top-24 hidden rounded-full px-3 py-1.5 font-mono text-[11px] text-primary md:block">
+              AI answered · 0.4s
             </div>
           </div>
 

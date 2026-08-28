@@ -6,13 +6,13 @@ import { AuthLayout } from "@/components/AuthLayout";
 export const Route = createFileRoute("/register")({
   head: () => ({
     meta: [
-      { title: "Create your Replyloop account" },
+      { title: "Create your SafeWA account" },
       {
         name: "description",
         content:
           "Start a 3-day free trial: connect a WhatsApp session, send any message type, and turn on AI replies.",
       },
-      { property: "og:title", content: "Create your Replyloop account" },
+      { property: "og:title", content: "Create your SafeWA account" },
       {
         property: "og:description",
         content: "Three days free. Connect a session and turn on AI replies in minutes.",
