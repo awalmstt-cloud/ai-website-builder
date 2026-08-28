@@ -22,10 +22,16 @@ export function SiteNav() {
 
         <ul className="ml-auto hidden items-center gap-6 text-sm text-muted-foreground md:flex">
           {links.map((l) => (
-            <li key={l.href}>
-              <a href={l.href} className="transition-colors hover:text-foreground">
-                {l.label}
-              </a>
+            <li key={l.label}>
+              {"to" in l ? (
+                <Link to={l.to} className="transition-colors hover:text-foreground">
+                  {l.label}
+                </Link>
+              ) : (
+                <a href={l.href} className="transition-colors hover:text-foreground">
+                  {l.label}
+                </a>
+              )}
             </li>
           ))}
         </ul>
