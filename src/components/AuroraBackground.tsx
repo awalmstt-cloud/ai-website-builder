@@ -13,7 +13,7 @@ export function AuroraBackground() {
         className="absolute inset-x-0 bottom-[-20%] h-[110%]"
         style={{
           background:
-            "radial-gradient(58% 46% at 50% 82%, var(--glow) 0%, transparent 72%)",
+            "radial-gradient(58% 46% at 50% 82%, var(--glow-white) 0%, var(--glow) 32%, transparent 72%)",
         }}
       />
 
@@ -25,11 +25,12 @@ export function AuroraBackground() {
       >
         <defs>
           <radialGradient id="blobL" cx="30%" cy="60%" r="70%">
-            <stop offset="0%" stopColor="oklch(0.78 0.19 158)" stopOpacity="0.55" />
+            <stop offset="0%" stopColor="oklch(0.96 0.06 155)" stopOpacity="0.5" />
+            <stop offset="45%" stopColor="oklch(0.78 0.19 158)" stopOpacity="0.4" />
             <stop offset="100%" stopColor="oklch(0.5 0.14 165)" stopOpacity="0" />
           </radialGradient>
           <radialGradient id="blobR" cx="70%" cy="40%" r="70%">
-            <stop offset="0%" stopColor="oklch(0.7 0.16 150)" stopOpacity="0.3" />
+            <stop offset="0%" stopColor="oklch(0.94 0.05 150)" stopOpacity="0.35" />
             <stop offset="100%" stopColor="oklch(0.45 0.12 168)" stopOpacity="0" />
           </radialGradient>
         </defs>
