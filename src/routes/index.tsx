@@ -257,7 +257,7 @@ function Landing() {
               <p className="ml-2 font-mono text-xs text-muted-foreground">POST /v1/messages</p>
             </div>
             <pre className="overflow-x-auto p-5 font-mono text-xs leading-relaxed text-muted-foreground">
-              <code>{`curl https://api.safewa.dev/v1/messages \\
+              <code>{`curl https://api.safewachat.online/v1/messages \\
   -H "Authorization: Bearer $API_KEY" \\
   -d '{
     "session": "support-01",

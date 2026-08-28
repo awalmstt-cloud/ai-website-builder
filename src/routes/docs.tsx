@@ -49,12 +49,12 @@ const LANGS = ["cURL", "JavaScript", "Python"] as const;
 
 const msgSnippet = (body: string, lang: (typeof LANGS)[number]) => {
   if (lang === "cURL")
-    return `curl -X POST "https://api.safewa.dev/v1/messages" \\
+    return `curl -X POST "https://api.safewachat.online/v1/messages" \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '${body}'`;
   if (lang === "JavaScript")
-    return `const res = await fetch("https://api.safewa.dev/v1/messages", {
+    return `const res = await fetch("https://api.safewachat.online/v1/messages", {
   method: "POST",
   headers: {
     Authorization: \`Bearer \${process.env.SAFEWA_API_KEY}\`,
@@ -66,7 +66,7 @@ console.log(await res.json());`;
   return `import os, requests
 
 res = requests.post(
-    "https://api.safewa.dev/v1/messages",
+    "https://api.safewachat.online/v1/messages",
     headers={"Authorization": f"Bearer {os.environ['SAFEWA_API_KEY']}"},
     json=${body},
 )
@@ -130,7 +130,7 @@ const groups: Group[] = [
         snippets: [
           {
             lang: "cURL",
-            code: `curl -X POST "https://api.safewa.dev/v1/messages" \\
+            code: `curl -X POST "https://api.safewachat.online/v1/messages" \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -d '{
     "session": "default",
@@ -141,7 +141,7 @@ const groups: Group[] = [
           },
           {
             lang: "JavaScript",
-            code: `const res = await fetch("https://api.safewa.dev/v1/messages", {
+            code: `const res = await fetch("https://api.safewachat.online/v1/messages", {
   method: "POST",
   headers: { Authorization: \`Bearer \${process.env.SAFEWA_API_KEY}\` },
   body: JSON.stringify({
@@ -158,7 +158,7 @@ console.log(await res.json());`,
             code: `import os, requests
 
 res = requests.post(
-    "https://api.safewa.dev/v1/messages",
+    "https://api.safewachat.online/v1/messages",
     headers={"Authorization": f"Bearer {os.environ['SAFEWA_API_KEY']}"},
     json={
         "session": "default",
@@ -194,12 +194,12 @@ print(res.json())`,
         snippets: [
           {
             lang: "cURL",
-            code: `curl "https://api.safewa.dev/v1/whoami" \\
+            code: `curl "https://api.safewachat.online/v1/whoami" \\
   -H "Authorization: Bearer YOUR_API_KEY"`,
           },
           {
             lang: "JavaScript",
-            code: `const res = await fetch("https://api.safewa.dev/v1/whoami", {
+            code: `const res = await fetch("https://api.safewachat.online/v1/whoami", {
   headers: { Authorization: \`Bearer \${process.env.SAFEWA_API_KEY}\` },
 });
 console.log(await res.json());`,
@@ -209,7 +209,7 @@ console.log(await res.json());`,
             code: `import os, requests
 
 res = requests.get(
-    "https://api.safewa.dev/v1/whoami",
+    "https://api.safewachat.online/v1/whoami",
     headers={"Authorization": f"Bearer {os.environ['SAFEWA_API_KEY']}"},
 )
 print(res.json())`,
@@ -243,17 +243,17 @@ print(res.json())`,
         snippets: [
           {
             lang: "cURL",
-            code: `curl -X POST "https://api.safewa.dev/v1/sessions" \\
+            code: `curl -X POST "https://api.safewachat.online/v1/sessions" \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -d '{ "name": "support-01", "webhook": "https://your.app/hooks/safewa" }'
 
 # then fetch the QR code
-curl "https://api.safewa.dev/v1/sessions/support-01/qr" \\
+curl "https://api.safewachat.online/v1/sessions/support-01/qr" \\
   -H "Authorization: Bearer YOUR_API_KEY"`,
           },
           {
             lang: "JavaScript",
-            code: `await fetch("https://api.safewa.dev/v1/sessions", {
+            code: `await fetch("https://api.safewachat.online/v1/sessions", {
   method: "POST",
   headers: { Authorization: \`Bearer \${KEY}\` },
   body: JSON.stringify({
@@ -264,14 +264,14 @@ curl "https://api.safewa.dev/v1/sessions/support-01/qr" \\
 
 // then fetch the QR code
 const qr = await fetch(
-  "https://api.safewa.dev/v1/sessions/support-01/qr",
+  "https://api.safewachat.online/v1/sessions/support-01/qr",
   { headers: { Authorization: \`Bearer \${KEY}\` } }
 ).then((r) => r.json());`,
           },
           {
             lang: "Python",
             code: `requests.post(
-    "https://api.safewa.dev/v1/sessions",
+    "https://api.safewachat.online/v1/sessions",
     headers={"Authorization": f"Bearer {KEY}"},
     json={"name": "support-01",
           "webhook": "https://your.app/hooks/safewa"},
@@ -279,7 +279,7 @@ const qr = await fetch(
 
 # then fetch the QR code
 qr = requests.get(
-    "https://api.safewa.dev/v1/sessions/support-01/qr",
+    "https://api.safewachat.online/v1/sessions/support-01/qr",
     headers={"Authorization": f"Bearer {KEY}"},
 ).json()`,
           },
@@ -405,12 +405,12 @@ qr = requests.get(
         snippets: [
           {
             lang: "cURL",
-            code: `curl -X DELETE "https://api.safewa.dev/v1/messages/msg_9f3ka21" \\
+            code: `curl -X DELETE "https://api.safewachat.online/v1/messages/msg_9f3ka21" \\
   -H "Authorization: Bearer YOUR_API_KEY"`,
           },
           {
             lang: "JavaScript",
-            code: `await fetch("https://api.safewa.dev/v1/messages/msg_9f3ka21", {
+            code: `await fetch("https://api.safewachat.online/v1/messages/msg_9f3ka21", {
   method: "DELETE",
   headers: { Authorization: \`Bearer \${KEY}\` },
 });`,
@@ -418,7 +418,7 @@ qr = requests.get(
           {
             lang: "Python",
             code: `requests.delete(
-    "https://api.safewa.dev/v1/messages/msg_9f3ka21",
+    "https://api.safewachat.online/v1/messages/msg_9f3ka21",
     headers={"Authorization": f"Bearer {KEY}"},
 )`,
           },
@@ -455,7 +455,7 @@ qr = requests.get(
         snippets: [
           {
             lang: "cURL",
-            code: `curl -X PATCH "https://api.safewa.dev/v1/sessions/support-01" \\
+            code: `curl -X PATCH "https://api.safewachat.online/v1/sessions/support-01" \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -d '{
     "ai": {
@@ -467,7 +467,7 @@ qr = requests.get(
           },
           {
             lang: "JavaScript",
-            code: `await fetch("https://api.safewa.dev/v1/sessions/support-01", {
+            code: `await fetch("https://api.safewachat.online/v1/sessions/support-01", {
   method: "PATCH",
   headers: { Authorization: \`Bearer \${KEY}\` },
   body: JSON.stringify({
@@ -482,7 +482,7 @@ qr = requests.get(
           {
             lang: "Python",
             code: `requests.patch(
-    "https://api.safewa.dev/v1/sessions/support-01",
+    "https://api.safewachat.online/v1/sessions/support-01",
     headers={"Authorization": f"Bearer {KEY}"},
     json={
         "ai": {
