@@ -33,7 +33,7 @@ type Param = { name: string; type: string; required: boolean; desc: string };
 type Topic = {
   id: string;
   label: string;
-  isNew?: boolean;
+  isNew?: boolean | undefined;
   method: "GET" | "POST" | "PATCH" | "DELETE";
   path: string;
   desc: string;
