@@ -169,15 +169,7 @@ function Landing() {
             <h1 className="mt-8 font-display text-5xl leading-[1.05] font-bold tracking-tight text-foreground md:text-7xl">
               Turn WhatsApp into
               <br />
-              <span
-                className="bg-clip-text text-transparent"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(90deg, oklch(0.80 0.19 160) 0%, oklch(0.78 0.15 210) 55%, oklch(0.85 0.10 220) 100%)",
-                }}
-              >
-                an AI workflow engine.
-              </span>
+              <span className="text-animated-gradient">an AI workflow engine.</span>
             </h1>
 
             <p className="mx-auto mt-6 max-w-xl text-base text-muted-foreground md:text-lg">
