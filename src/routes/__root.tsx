@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -129,11 +130,23 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const isLoading = useRouterState({ select: (s) => s.isLoading });
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      {/* Top progress bar shown while a new page is loading */}
+      <div
+        aria-hidden
+        className={`fixed inset-x-0 top-0 z-[100] h-0.5 origin-left bg-gradient-to-r from-primary via-emerald-300 to-primary transition-transform duration-300 ${
+          isLoading ? "page-progress scale-x-100" : "scale-x-0"
+        }`}
+      />
+      {/* Animated page transition — keyed on the path so it replays on every navigation */}
+      <div key={pathname} className="page-enter">
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <Outlet />
+      </div>
     </QueryClientProvider>
   );
 }
