@@ -17,7 +17,7 @@ export function SiteNav() {
           <span className="grid size-8 place-items-center rounded-full bg-primary text-primary-foreground">
             <MessageSquareDot className="size-4" />
           </span>
-          SafeWA
+          SafeWachat
         </Link>
 
         <ul className="ml-auto hidden items-center gap-6 text-sm text-muted-foreground md:flex">

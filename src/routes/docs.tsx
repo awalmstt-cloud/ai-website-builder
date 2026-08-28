@@ -7,13 +7,13 @@ import { SiteNav } from "@/components/SiteNav";
 export const Route = createFileRoute("/docs")({
   head: () => ({
     meta: [
-      { title: "Docs — SafeWA WhatsApp API" },
+      { title: "Docs — SafeWachat WhatsApp API" },
       {
         name: "description",
         content:
-          "SafeWA developer docs: create an API key, link a WhatsApp session with one QR scan, send any message type, and switch on AI auto-replies.",
+          "SafeWachat developer docs: create an API key, link a WhatsApp session with one QR scan, send any message type, and switch on AI auto-replies.",
       },
-      { property: "og:title", content: "Docs — SafeWA WhatsApp API" },
+      { property: "og:title", content: "Docs — SafeWachat WhatsApp API" },
       {
         property: "og:description",
         content:
@@ -57,7 +57,7 @@ const msgSnippet = (body: string, lang: (typeof LANGS)[number]) => {
     return `const res = await fetch("https://api.safewachat.online/v1/messages", {
   method: "POST",
   headers: {
-    Authorization: \`Bearer \${process.env.SAFEWA_API_KEY}\`,
+    Authorization: \`Bearer \${process.env.SAFEWACHAT_API_KEY}\`,
     "Content-Type": "application/json",
   },
   body: JSON.stringify(${body}),
@@ -67,7 +67,7 @@ console.log(await res.json());`;
 
 res = requests.post(
     "https://api.safewachat.online/v1/messages",
-    headers={"Authorization": f"Bearer {os.environ['SAFEWA_API_KEY']}"},
+    headers={"Authorization": f"Bearer {os.environ['SAFEWACHAT_API_KEY']}"},
     json=${body},
 )
 print(res.json())`;
@@ -136,19 +136,19 @@ const groups: Group[] = [
     "session": "default",
     "to": "+8801700000000",
     "type": "text",
-    "text": "Hello from SafeWA"
+    "text": "Hello from SafeWachat"
   }'`,
           },
           {
             lang: "JavaScript",
             code: `const res = await fetch("https://api.safewachat.online/v1/messages", {
   method: "POST",
-  headers: { Authorization: \`Bearer \${process.env.SAFEWA_API_KEY}\` },
+  headers: { Authorization: \`Bearer \${process.env.SAFEWACHAT_API_KEY}\` },
   body: JSON.stringify({
     session: "default",
     to: "+8801700000000",
     type: "text",
-    text: "Hello from SafeWA",
+    text: "Hello from SafeWachat",
   }),
 });
 console.log(await res.json());`,
@@ -159,12 +159,12 @@ console.log(await res.json());`,
 
 res = requests.post(
     "https://api.safewachat.online/v1/messages",
-    headers={"Authorization": f"Bearer {os.environ['SAFEWA_API_KEY']}"},
+    headers={"Authorization": f"Bearer {os.environ['SAFEWACHAT_API_KEY']}"},
     json={
         "session": "default",
         "to": "+8801700000000",
         "type": "text",
-        "text": "Hello from SafeWA",
+        "text": "Hello from SafeWachat",
     },
 )
 print(res.json())`,
@@ -200,7 +200,7 @@ print(res.json())`,
           {
             lang: "JavaScript",
             code: `const res = await fetch("https://api.safewachat.online/v1/whoami", {
-  headers: { Authorization: \`Bearer \${process.env.SAFEWA_API_KEY}\` },
+  headers: { Authorization: \`Bearer \${process.env.SAFEWACHAT_API_KEY}\` },
 });
 console.log(await res.json());`,
           },
@@ -210,7 +210,7 @@ console.log(await res.json());`,
 
 res = requests.get(
     "https://api.safewachat.online/v1/whoami",
-    headers={"Authorization": f"Bearer {os.environ['SAFEWA_API_KEY']}"},
+    headers={"Authorization": f"Bearer {os.environ['SAFEWACHAT_API_KEY']}"},
 )
 print(res.json())`,
           },
@@ -245,7 +245,7 @@ print(res.json())`,
             lang: "cURL",
             code: `curl -X POST "https://api.safewachat.online/v1/sessions" \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
-  -d '{ "name": "support-01", "webhook": "https://your.app/hooks/safewa" }'
+  -d '{ "name": "support-01", "webhook": "https://your.app/hooks/safewachat" }'
 
 # then fetch the QR code
 curl "https://api.safewachat.online/v1/sessions/support-01/qr" \\
@@ -258,7 +258,7 @@ curl "https://api.safewachat.online/v1/sessions/support-01/qr" \\
   headers: { Authorization: \`Bearer \${KEY}\` },
   body: JSON.stringify({
     name: "support-01",
-    webhook: "https://your.app/hooks/safewa",
+    webhook: "https://your.app/hooks/safewachat",
   }),
 });
 
@@ -274,7 +274,7 @@ const qr = await fetch(
     "https://api.safewachat.online/v1/sessions",
     headers={"Authorization": f"Bearer {KEY}"},
     json={"name": "support-01",
-          "webhook": "https://your.app/hooks/safewa"},
+          "webhook": "https://your.app/hooks/safewachat"},
 )
 
 # then fetch the QR code
@@ -514,13 +514,13 @@ qr = requests.get(
         label: "Webhooks",
         method: "POST",
         path: "your endpoint",
-        desc: "SafeWA pushes events to your webhook URL as they happen: incoming messages, delivery status, and session connect or disconnect. Reply with any 2xx within 5 seconds, otherwise the event is retried with backoff. Every request is signed — verify the x-safewa-signature header with your webhook secret.",
+        desc: "SafeWachat pushes events to your webhook URL as they happen: incoming messages, delivery status, and session connect or disconnect. Reply with any 2xx within 5 seconds, otherwise the event is retried with backoff. Every request is signed — verify the x-safewachat-signature header with your webhook secret.",
         snippets: [
           {
             lang: "cURL",
-            code: `# what SafeWA sends to your URL
-curl -X POST "https://your.app/hooks/safewa" \\
-  -H "x-safewa-signature: sha256=..." \\
+            code: `# what SafeWachat sends to your URL
+curl -X POST "https://your.app/hooks/safewachat" \\
+  -H "x-safewachat-signature: sha256=..." \\
   -d '{
     "event": "message.received",
     "session": "support-01",
@@ -545,8 +545,8 @@ export async function POST(req: Request) {
           },
           {
             lang: "Python",
-            code: `@app.post("/hooks/safewa")
-def safewa_hook(event: dict):
+            code: `@app.post("/hooks/safewachat")
+def safewachat_hook(event: dict):
     if event["event"] == "message.received":
         print(event["data"]["from"], event["data"]["text"])
     return {"ok": True}  # any 2xx`,

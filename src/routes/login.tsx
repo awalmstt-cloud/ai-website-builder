@@ -6,12 +6,12 @@ import { AuthLayout } from "@/components/AuthLayout";
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
-      { title: "Log in — SafeWA" },
+      { title: "Log in — SafeWachat" },
       {
         name: "description",
-        content: "Sign in to your SafeWA account to manage WhatsApp sessions and AI replies.",
+        content: "Sign in to your SafeWachat account to manage WhatsApp sessions and AI replies.",
       },
-      { property: "og:title", content: "Log in — SafeWA" },
+      { property: "og:title", content: "Log in — SafeWachat" },
       {
         property: "og:description",
         content: "Sign in to manage your WhatsApp sessions and AI auto-replies.",

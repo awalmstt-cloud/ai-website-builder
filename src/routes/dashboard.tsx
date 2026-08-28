@@ -19,13 +19,13 @@ import { AuroraBackground } from "@/components/AuroraBackground";
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
     meta: [
-      { title: "Dashboard — SafeWA" },
+      { title: "Dashboard — SafeWachat" },
       {
         name: "description",
         content:
-          "Manage WhatsApp sessions, monitor message delivery and AI replies from the SafeWA dashboard.",
+          "Manage WhatsApp sessions, monitor message delivery and AI replies from the SafeWachat dashboard.",
       },
-      { property: "og:title", content: "Dashboard — SafeWA" },
+      { property: "og:title", content: "Dashboard — SafeWachat" },
       {
         property: "og:description",
         content: "Sessions, message volume, AI replies and API keys in one place.",
@@ -70,7 +70,7 @@ const activity = [
   { to: "+880 1712-345678", text: "Your order #4821 has been shipped.", kind: "AI", time: "2m" },
   { to: "+880 1934-119922", text: "Sure! Our pricing starts at $19/mo.", kind: "AI", time: "6m" },
   { to: "+880 1888-772211", text: "invoice-august.pdf", kind: "Document", time: "14m" },
-  { to: "+880 1611-505050", text: "Welcome to SafeWA 🎉", kind: "Template", time: "31m" },
+  { to: "+880 1611-505050", text: "Welcome to SafeWachat 🎉", kind: "Template", time: "31m" },
 ];
 
 function DashboardPage() {
@@ -87,7 +87,7 @@ function DashboardPage() {
             <span className="grid size-8 place-items-center rounded-full bg-primary text-primary-foreground">
               <MessageSquareDot className="size-4" />
             </span>
-            SafeWA
+            SafeWachat
           </Link>
 
           <nav className="flex flex-col gap-1">
@@ -369,7 +369,7 @@ function AiReplies() {
         <label className="block text-xs text-muted-foreground">System prompt</label>
         <textarea
           rows={6}
-          defaultValue="You are SafeWA support. Reply in the customer's language, keep answers under 3 sentences, and never share internal pricing."
+          defaultValue="You are SafeWachat support. Reply in the customer's language, keep answers under 3 sentences, and never share internal pricing."
           className="mt-1.5 w-full rounded-xl border border-input bg-surface p-3 text-sm outline-none focus:ring-2 focus:ring-ring"
         />
         <div className="mt-4 grid grid-cols-2 gap-3">
@@ -413,7 +413,7 @@ function Webhooks() {
   return (
     <Card title="Webhook endpoints">
       <div className="space-y-3">
-        {["https://your.app/hooks/safewa", "https://crm.your.app/whatsapp"].map((url) => (
+        {["https://your.app/hooks/safewachat", "https://crm.your.app/whatsapp"].map((url) => (
           <div
             key={url}
             className="flex flex-wrap items-center gap-3 rounded-xl border border-border/60 px-4 py-3"
@@ -480,7 +480,7 @@ function SettingsPanel() {
     <div className="grid gap-6 lg:grid-cols-2">
       <Card title="Workspace">
         <div className="space-y-4">
-          <Field label="Workspace name" defaultValue="SafeWA Production" />
+          <Field label="Workspace name" defaultValue="SafeWachat Production" />
           <Field label="Contact email" defaultValue="team@safewachat.online" />
           <Field label="Default session" defaultValue="support-01" />
           <button className="glow-ring rounded-full bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground">
@@ -490,7 +490,7 @@ function SettingsPanel() {
       </Card>
       <Card title="Danger zone">
         <p className="text-xs text-muted-foreground">
-          Disconnecting all sessions logs every linked phone out of SafeWA. You will need to scan
+          Disconnecting all sessions logs every linked phone out of SafeWachat. You will need to scan
           the QR codes again.
         </p>
         <button className="mt-4 rounded-full border border-destructive px-4 py-2 text-xs font-semibold text-destructive">

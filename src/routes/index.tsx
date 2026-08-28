@@ -21,13 +21,13 @@ import { SiteFooter } from "@/components/SiteFooter";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "SafeWA — WhatsApp API with built-in AI replies" },
+      { title: "SafeWachat — WhatsApp API with built-in AI replies" },
       {
         name: "description",
         content:
           "Connect a WhatsApp session in seconds, send any message type through one API, and let AI answer customers in their own language. No per-message fees.",
       },
-      { property: "og:title", content: "SafeWA — WhatsApp API with built-in AI replies" },
+      { property: "og:title", content: "SafeWachat — WhatsApp API with built-in AI replies" },
       {
         property: "og:description",
         content:
@@ -163,7 +163,7 @@ function Landing() {
           <div className="relative mx-auto max-w-3xl">
             <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs text-muted-foreground">
               <span className="size-1.5 rounded-full bg-primary" />
-              SafeWA AI automation OS for WhatsApp
+              SafeWachat AI automation OS for WhatsApp
             </span>
 
             <h1 className="mt-8 font-display text-5xl leading-[1.05] font-bold tracking-tight text-foreground md:text-7xl">
