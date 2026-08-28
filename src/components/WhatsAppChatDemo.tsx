@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ImageIcon } from "lucide-react";
+import dressImg from "@/assets/dress.jpg";
 
 type Msg =
   | { from: "them" | "us"; kind: "text"; text: string; time: string }
@@ -98,9 +98,12 @@ export function WhatsAppChatDemo() {
           >
             {m.kind === "image" ? (
               <>
-                <div className="mb-1.5 grid h-24 w-40 place-items-center rounded-md bg-gradient-to-br from-[#3a5a6d] to-[#1f3540]">
-                  <ImageIcon className="size-6 text-white/60" />
-                </div>
+                <img
+                  src={dressImg}
+                  alt="Blue kurti dress shared by the customer"
+                  loading="lazy"
+                  className="mb-1.5 h-40 w-40 rounded-md object-cover object-top"
+                />
                 {m.caption}
               </>
             ) : (
