@@ -166,11 +166,17 @@ function Landing() {
               SafeWA AI automation OS for WhatsApp
             </span>
 
-            <h1 className="mt-8 font-display text-5xl leading-[1.05] font-bold tracking-tight md:text-7xl">
-              WhatsApp that answers
+            <h1 className="mt-8 font-display text-5xl leading-[1.05] font-bold tracking-tight text-foreground md:text-7xl">
+              Turn WhatsApp into
               <br />
-              <span className="bg-gradient-to-r from-primary via-white to-primary bg-clip-text text-transparent">
-                before you do
+              <span
+                className="bg-clip-text text-transparent"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(90deg, oklch(0.80 0.19 160) 0%, oklch(0.78 0.15 210) 55%, oklch(0.85 0.10 220) 100%)",
+                }}
+              >
+                an AI workflow engine.
               </span>
             </h1>
 
