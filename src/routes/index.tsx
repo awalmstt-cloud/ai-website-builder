@@ -14,6 +14,7 @@ import {
   Sparkles,
   Video,
 } from "lucide-react";
+import { WhatsAppChatDemo } from "@/components/WhatsAppChatDemo";
 import { AuroraBackground } from "@/components/AuroraBackground";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -44,7 +45,7 @@ const stats = [
   { value: "10K+", label: "Active developers" },
   { value: "50M+", label: "Messages routed" },
   { value: "99.9%", label: "Uptime SLA" },
-  { value: "0.4s", label: "Median AI reply" },
+  { value: "0.6s", label: "Median AI reply" },
 ];
 
 const steps = [
@@ -182,7 +183,7 @@ function Landing() {
                 to="/register"
                 className="glow-ring inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5"
               >
-                Start free trial <ArrowRight className="size-4" />
+                Get full access <ArrowRight className="size-4" />
               </Link>
               <Link
                 to="/docs"
@@ -346,7 +347,7 @@ function Landing() {
             </div>
             {/* floating badge */}
             <div className="glass-card absolute -right-10 top-24 hidden rounded-full px-3 py-1.5 font-mono text-[11px] text-primary md:block">
-              AI answered · 0.4s
+              AI answered · 0.6s
             </div>
           </div>
 

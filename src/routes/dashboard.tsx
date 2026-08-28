@@ -53,7 +53,7 @@ const stats = [
   { label: "Messages sent", value: "48,213", delta: "+12.4%" },
   { label: "AI replies", value: "19,806", delta: "+8.1%" },
   { label: "Active sessions", value: "6", delta: "2 idle" },
-  { label: "Avg. reply time", value: "0.41s", delta: "-0.06s" },
+  { label: "Avg. reply time", value: "0.62s", delta: "-0.06s" },
 ];
 
 const volume = [32, 45, 38, 62, 55, 78, 66, 84, 71, 92, 80, 97];
@@ -533,7 +533,7 @@ function AiReplies() {
         <div className="mt-4 grid grid-cols-2 gap-3">
           <div>
             <p className="text-xs text-muted-foreground">Reply delay</p>
-            <p className="mt-1 font-mono text-sm">0.4s</p>
+            <p className="mt-1 font-mono text-sm">0.6s</p>
           </div>
           <div>
             <p className="text-xs text-muted-foreground">Fallback to human</p>

@@ -31,7 +31,7 @@ export function AuthLayout({
           Sessions, media, groups and channels through one API — with AI replies in under a second.
         </p>
         <div className="glass-card mt-10 inline-flex items-center gap-3 rounded-full px-4 py-2 font-mono text-xs text-muted-foreground">
-          AI replied · 0.4s <span className="text-primary">✓✓</span>
+          AI replied · 0.6s <span className="text-primary">✓✓</span>
         </div>
       </div>
 

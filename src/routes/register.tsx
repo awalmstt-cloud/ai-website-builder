@@ -10,7 +10,7 @@ export const Route = createFileRoute("/register")({
       {
         name: "description",
         content:
-          "Start a 3-day free trial: connect a WhatsApp session, send any message type, and turn on AI replies.",
+          "Get started on a premium plan: connect a WhatsApp session, send any message type, and turn on AI replies.",
       },
       { property: "og:title", content: "Create your SafeWachat account" },
       {
