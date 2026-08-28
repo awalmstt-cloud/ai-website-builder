@@ -406,9 +406,27 @@ function Landing() {
       <section id="pricing" className="px-6 py-24">
         <div className="mx-auto max-w-6xl">
           <p className="font-mono text-xs tracking-widest text-primary uppercase">Pricing</p>
-          <h2 className="mt-4 font-display text-3xl font-bold md:text-4xl">
-            Flat monthly. Never per message.
-          </h2>
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-4">
+            <h2 className="font-display text-3xl font-bold md:text-4xl">
+              Flat monthly. Never per message.
+            </h2>
+            <div className="glass-card inline-flex rounded-full p-1">
+              {(["USD", "BDT"] as const).map((c) => (
+                <button
+                  key={c}
+                  type="button"
+                  onClick={() => setCurrency(c)}
+                  className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-colors ${
+                    currency === c
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {c}
+                </button>
+              ))}
+            </div>
+          </div>
           <div className="mt-12 grid gap-5 md:grid-cols-3">
             {plans.map((p) => (
               <div
@@ -425,7 +443,10 @@ function Landing() {
                     </span>
                   )}
                 </div>
-                <p className="mt-6 font-mono text-4xl font-bold">{p.price}</p>
+                <p className="mt-6 font-mono text-4xl font-bold">
+                  {currency === "USD" ? p.usd : p.bdt}
+                </p>
+
                 <p className="text-xs text-muted-foreground">{p.period}</p>
                 <ul className="mt-6 flex-1 space-y-2 text-sm text-muted-foreground">
                   {p.features.map((f) => (
