@@ -726,7 +726,6 @@ function Docs() {
 
   return (
     <div className="relative min-h-screen">
-      <AuroraBackground />
       <SiteNav />
 
       <div className="mx-auto flex max-w-7xl gap-8 px-6 pt-10 pb-16">
