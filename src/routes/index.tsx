@@ -395,7 +395,7 @@ function Landing() {
                 className="glass-card rounded-2xl p-6 transition-transform hover:-translate-y-1"
               >
                 <h3 className="font-display text-lg font-semibold">{u.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{u.body}</p>
+                <p className="mt-2 text-sm font-medium text-muted-foreground">{u.body}</p>
               </div>
             ))}
           </div>
