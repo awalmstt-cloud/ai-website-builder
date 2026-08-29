@@ -194,13 +194,21 @@ function DashboardPage() {
             ))}
           </div>
 
-          {tab === "overview" && <Overview />}
-          {tab === "sessions" && <Sessions />}
-          {tab === "messages" && <Messages />}
-          {tab === "ai" && <AiReplies />}
-          {tab === "webhooks" && <Webhooks />}
-          {tab === "keys" && <ApiKeys />}
-          {tab === "settings" && <SettingsPanel />}
+          <div key={tab} className="panel-enter space-y-6">
+            {tab === "overview" && <Overview />}
+            {tab === "sessions" && <Sessions />}
+            {tab === "onboarding" && <Onboarding />}
+            {tab === "messages" && <Messages />}
+            {tab === "contacts" && <Contacts />}
+            {tab === "webhooks" && <Webhooks />}
+            {tab === "ai" && <AiReplies />}
+            {tab === "safety" && <SafetyCenter />}
+            {tab === "keys" && <ApiKeys />}
+            {tab === "usage" && <Usage />}
+            {tab === "billing" && <Billing />}
+            {tab === "settings" && <SettingsPanel />}
+          </div>
+
         </main>
       </div>
     </div>
