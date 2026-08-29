@@ -160,7 +160,6 @@ function Landing() {
   const [currency, setCurrency] = useState<"USD" | "BDT">("USD");
   return (
     <div className="relative min-h-screen">
-      <AuroraBackground />
       <SiteNav />
 
       {/* HERO — open layout, no box */}
