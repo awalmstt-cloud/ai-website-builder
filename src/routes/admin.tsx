@@ -16,7 +16,7 @@ import {
   Wallet,
   X,
 } from "lucide-react";
-import { AuroraBackground } from "@/components/AuroraBackground";
+
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
