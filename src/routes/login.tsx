@@ -1,6 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
-import { AuroraBackground } from "@/components/AuroraBackground";
 import { AuthLayout } from "@/components/AuthLayout";
 
 export const Route = createFileRoute("/login")({
