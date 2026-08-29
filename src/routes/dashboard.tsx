@@ -40,15 +40,21 @@ export const Route = createFileRoute("/dashboard")({
 
 const nav = [
   { id: "overview", label: "Overview", icon: Gauge },
-  { id: "sessions", label: "Sessions", icon: Smartphone },
+  { id: "sessions", label: "WhatsApp Sessions", icon: Smartphone },
+  { id: "onboarding", label: "Onboarding", icon: Rocket },
   { id: "messages", label: "Messages", icon: Send },
-  { id: "ai", label: "AI Replies", icon: Bot },
+  { id: "contacts", label: "Contacts", icon: Users },
   { id: "webhooks", label: "Webhooks", icon: Webhook },
+  { id: "ai", label: "AI Assistant", icon: Bot },
+  { id: "safety", label: "Safety Center", icon: ShieldCheck },
   { id: "keys", label: "API Keys", icon: KeyRound },
+  { id: "usage", label: "Usage", icon: BarChart3 },
+  { id: "billing", label: "Billing", icon: CreditCard },
   { id: "settings", label: "Settings", icon: Settings },
 ] as const;
 
 type TabId = (typeof nav)[number]["id"];
+
 
 const stats = [
   { label: "Messages sent", value: "48,213", delta: "+12.4%" },
