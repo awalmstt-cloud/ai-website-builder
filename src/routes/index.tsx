@@ -16,7 +16,6 @@ import {
   Video,
 } from "lucide-react";
 import { WhatsAppChatDemo } from "@/components/WhatsAppChatDemo";
-import { AuroraBackground } from "@/components/AuroraBackground";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 
