@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { BookOpen, Copy, Search } from "lucide-react";
-import { AuroraBackground } from "@/components/AuroraBackground";
 import { SiteNav } from "@/components/SiteNav";
 
 export const Route = createFileRoute("/docs")({
@@ -727,7 +726,6 @@ function Docs() {
 
   return (
     <div className="relative min-h-screen">
-      <AuroraBackground />
       <SiteNav />
 
       <div className="mx-auto flex max-w-7xl gap-8 px-6 pt-10 pb-16">

@@ -16,7 +16,7 @@ import {
   Wallet,
   X,
 } from "lucide-react";
-import { AuroraBackground } from "@/components/AuroraBackground";
+
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -179,7 +179,6 @@ function AdminPage() {
 
   return (
     <div className="relative min-h-screen">
-      <AuroraBackground />
 
       <div className="relative mx-auto flex max-w-7xl gap-6 px-4 py-6 lg:px-6">
         <aside className="glass-card sticky top-6 hidden h-[calc(100vh-3rem)] w-60 shrink-0 flex-col rounded-3xl p-4 md:flex">

@@ -1,6 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
-import { AuroraBackground } from "@/components/AuroraBackground";
 import { AuthLayout } from "@/components/AuthLayout";
 
 export const Route = createFileRoute("/register")({
@@ -28,7 +27,6 @@ function RegisterPage() {
   const navigate = useNavigate();
   return (
     <div className="relative min-h-screen">
-      <AuroraBackground />
       <AuthLayout
         title="Start your trial"
         subtitle="Three days free. No card, no per-message fees."

@@ -11,6 +11,7 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
+import { AuroraBackground } from "@/components/AuroraBackground";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
@@ -135,6 +136,9 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      {/* Signature background — rendered once at the root so it stays
+          viewport-fixed (a transformed ancestor would break position:fixed) */}
+      <AuroraBackground />
       {/* Top progress bar shown while a new page is loading */}
       <div
         aria-hidden

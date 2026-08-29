@@ -1,6 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
-import { AuroraBackground } from "@/components/AuroraBackground";
 import { AuthLayout } from "@/components/AuthLayout";
 
 export const Route = createFileRoute("/login")({
@@ -27,7 +26,6 @@ function LoginPage() {
   const navigate = useNavigate();
   return (
     <div className="relative min-h-screen">
-      <AuroraBackground />
       <AuthLayout
         title="Welcome back"
         subtitle="Pick up where your sessions left off."

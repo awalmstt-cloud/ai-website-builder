@@ -16,7 +16,6 @@ import {
   Video,
 } from "lucide-react";
 import { WhatsAppChatDemo } from "@/components/WhatsAppChatDemo";
-import { AuroraBackground } from "@/components/AuroraBackground";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 
@@ -161,7 +160,6 @@ function Landing() {
   const [currency, setCurrency] = useState<"USD" | "BDT">("USD");
   return (
     <div className="relative min-h-screen">
-      <AuroraBackground />
       <SiteNav />
 
       {/* HERO — open layout, no box */}
