@@ -753,7 +753,7 @@ function Docs() {
               if (topics.length === 0) return null;
               return (
                 <div key={g.title} className="mb-4">
-                  <p className="px-2 pb-2 font-display text-[11px] font-bold tracking-widest text-foreground uppercase">
+                  <p className="px-2 pb-2 font-mono text-[10px] tracking-widest text-muted-foreground uppercase">
                     {g.title}
                   </p>
                   <nav className="flex flex-col gap-0.5">
