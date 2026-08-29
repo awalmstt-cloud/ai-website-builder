@@ -79,7 +79,6 @@ function DashboardPage() {
 
   return (
     <div className="relative min-h-screen font-display tracking-[-0.02em]">
-      <AuroraBackground />
 
       <div className="relative mx-auto flex max-w-7xl gap-6 px-4 py-6 lg:px-6">
         {/* sidebar */}
