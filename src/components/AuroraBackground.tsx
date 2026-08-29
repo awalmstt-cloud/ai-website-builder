@@ -66,8 +66,8 @@ export function AuroraBackground() {
         </g>
       </svg>
 
-      {/* top vignette so the nav floats over dark */}
-      <div className="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-background to-transparent" />
+      {/* subtle top vignette so the nav floats but the upper glow still reads */}
+      <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-background/80 to-transparent" />
     </div>
   );
 }
