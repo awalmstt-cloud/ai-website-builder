@@ -8,6 +8,15 @@ export function AuroraBackground() {
       {/* base wash */}
       <div className="absolute inset-0 bg-background" />
 
+      {/* upper glow column — icy white bleeding from the top */}
+      <div
+        className="absolute inset-x-0 top-[-25%] h-[90%]"
+        style={{
+          background:
+            "radial-gradient(50% 40% at 50% 18%, oklch(0.98 0.015 240 / 42%) 0%, oklch(0.9 0.03 240 / 20%) 34%, transparent 72%)",
+        }}
+      />
+
       {/* vertical glow column rising from lower centre — icy white */}
       <div
         className="absolute inset-x-0 bottom-[-20%] h-[110%]"
