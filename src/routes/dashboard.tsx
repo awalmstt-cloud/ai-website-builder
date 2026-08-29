@@ -2,19 +2,25 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import {
   Activity,
+  BarChart3,
   BookOpen,
   Bot,
   Copy,
+  CreditCard,
   Gauge,
   KeyRound,
   LogOut,
   MessageSquareDot,
   QrCode,
+  Rocket,
   Send,
   Settings,
+  ShieldCheck,
   Smartphone,
+  Users,
   Webhook,
 } from "lucide-react";
+
 
 
 export const Route = createFileRoute("/dashboard")({
