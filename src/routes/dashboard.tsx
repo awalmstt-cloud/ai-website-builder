@@ -102,22 +102,32 @@ function DashboardPage() {
             SafeWachat
           </Link>
 
-          <nav className="flex flex-col gap-1">
+          <nav className="flex flex-col gap-1 overflow-y-auto pr-1">
             {nav.map((item) => (
               <button
                 key={item.id}
                 type="button"
                 onClick={() => setTab(item.id)}
-                className={`flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm transition-colors ${
+                className={`group relative flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm transition-all duration-300 ${
                   tab === item.id
                     ? "bg-surface text-foreground"
-                    : "text-muted-foreground hover:text-foreground"
+                    : "text-muted-foreground hover:translate-x-0.5 hover:bg-surface/50 hover:text-foreground"
                 }`}
               >
-                <item.icon className="size-4" />
+                <span
+                  className={`absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-full bg-primary transition-all duration-300 ${
+                    tab === item.id ? "opacity-100" : "h-0 opacity-0"
+                  }`}
+                />
+                <item.icon
+                  className={`size-4 transition-transform duration-300 ${
+                    tab === item.id ? "text-primary" : "group-hover:scale-110"
+                  }`}
+                />
                 {item.label}
               </button>
             ))}
+
             <Link
               to="/docs"
               className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
