@@ -373,7 +373,7 @@ function Landing() {
               ].map((f) => (
                 <li key={f} className="flex gap-3">
                   <Check className="mt-0.5 size-4 shrink-0 text-primary" />
-                  <span className="text-muted-foreground">{f}</span>
+                  <span className="font-medium text-muted-foreground">{f}</span>
                 </li>
               ))}
             </ul>
