@@ -299,7 +299,7 @@ function Landing() {
                   </span>
                 </div>
                 <h3 className="mt-6 font-display text-lg font-semibold">{s.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{s.body}</p>
+                <p className="mt-2 text-sm font-medium text-muted-foreground">{s.body}</p>
               </li>
             ))}
           </ol>
