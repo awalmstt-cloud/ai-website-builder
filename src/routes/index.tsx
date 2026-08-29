@@ -247,7 +247,7 @@ function Landing() {
                   <m.icon className="size-4 shrink-0 text-primary" />
                   <div className="min-w-0">
                     <p className="truncate text-sm font-medium">{m.label}</p>
-                    <p className="truncate text-xs text-muted-foreground">{m.hint}</p>
+                    <p className="truncate text-xs font-medium text-muted-foreground">{m.hint}</p>
                   </div>
                 </div>
               ))}
