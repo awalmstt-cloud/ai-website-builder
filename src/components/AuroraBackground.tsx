@@ -8,13 +8,22 @@ export function AuroraBackground() {
       {/* base wash */}
       <div className="absolute inset-0 bg-background" />
 
-      {/* upper glow — icy blue/white behind the hero */}
+      {/* upper glow — soft icy blue/white behind the hero */}
       <div
         className="absolute inset-x-0 top-0"
         style={{
-          height: "62%",
+          height: "58%",
           background:
-            "radial-gradient(54% 48% at 50% 34%, oklch(0.96 0.03 240 / 0.55) 0%, oklch(0.88 0.05 245 / 0.28) 36%, transparent 74%)",
+            "radial-gradient(52% 44% at 50% 30%, oklch(0.96 0.03 240 / 0.34) 0%, oklch(0.88 0.05 245 / 0.18) 38%, transparent 74%)",
+        }}
+      />
+
+      {/* reading scrim — softens the glow behind body text for legibility */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(120% 90% at 50% 42%, oklch(0.13 0.015 255 / 0.55) 0%, oklch(0.13 0.015 255 / 0.18) 46%, transparent 72%)",
         }}
       />
 

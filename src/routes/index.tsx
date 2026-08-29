@@ -247,7 +247,7 @@ function Landing() {
                   <m.icon className="size-4 shrink-0 text-primary" />
                   <div className="min-w-0">
                     <p className="truncate text-sm font-medium">{m.label}</p>
-                    <p className="truncate text-xs text-muted-foreground">{m.hint}</p>
+                    <p className="truncate text-xs font-medium text-muted-foreground">{m.hint}</p>
                   </div>
                 </div>
               ))}
@@ -299,7 +299,7 @@ function Landing() {
                   </span>
                 </div>
                 <h3 className="mt-6 font-display text-lg font-semibold">{s.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{s.body}</p>
+                <p className="mt-2 text-sm font-medium text-muted-foreground">{s.body}</p>
               </li>
             ))}
           </ol>
@@ -373,7 +373,7 @@ function Landing() {
               ].map((f) => (
                 <li key={f} className="flex gap-3">
                   <Check className="mt-0.5 size-4 shrink-0 text-primary" />
-                  <span className="text-muted-foreground">{f}</span>
+                  <span className="font-medium text-muted-foreground">{f}</span>
                 </li>
               ))}
             </ul>
@@ -395,7 +395,7 @@ function Landing() {
                 className="glass-card rounded-2xl p-6 transition-transform hover:-translate-y-1"
               >
                 <h3 className="font-display text-lg font-semibold">{u.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{u.body}</p>
+                <p className="mt-2 text-sm font-medium text-muted-foreground">{u.body}</p>
               </div>
             ))}
           </div>
