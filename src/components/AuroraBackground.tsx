@@ -57,8 +57,9 @@ export function AuroraBackground() {
           />
         </g>
 
-        {/* hairline arcs — icy white */}
+        {/* hairline arcs — icy white (upper + lower) */}
         <g fill="none" stroke="oklch(0.96 0.02 240)" strokeOpacity="0.14">
+          <path d="M-100 120C200 320 420 220 760 200s640 80 820 320" />
           <path d="M-100 900C120 620 300 420 700 380s740 120 900 420" />
           <path d="M-60 980C200 700 420 520 760 500s660 180 820 460" />
           <path d="M120 1000C300 780 520 640 800 620" strokeOpacity="0.09" />
