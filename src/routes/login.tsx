@@ -26,7 +26,6 @@ function LoginPage() {
   const navigate = useNavigate();
   return (
     <div className="relative min-h-screen">
-      <AuroraBackground />
       <AuthLayout
         title="Welcome back"
         subtitle="Pick up where your sessions left off."
