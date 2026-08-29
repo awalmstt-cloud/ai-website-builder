@@ -895,3 +895,311 @@ function Field({ label, ...props }: { label: string } & React.InputHTMLAttribute
     </label>
   );
 }
+
+const onboardingSteps = [
+  {
+    title: "Create a workspace session",
+    desc: "Add your first WhatsApp number and give it a clear name like support-01.",
+    done: true,
+  },
+  {
+    title: "Scan the QR code",
+    desc: "Open WhatsApp → Linked devices → Link a device, then scan the QR on the Sessions page.",
+    done: true,
+  },
+  {
+    title: "Generate an API key",
+    desc: "Keys live under API Keys. Keep them server-side only.",
+    done: true,
+  },
+  {
+    title: "Connect a webhook",
+    desc: "Point a HTTPS endpoint at SafeWachat and pick the events you care about.",
+    done: false,
+  },
+  {
+    title: "Turn on the AI assistant",
+    desc: "Write your business prompt so replies match your tone.",
+    done: false,
+  },
+];
+
+function Onboarding() {
+  const done = onboardingSteps.filter((s) => s.done).length;
+  const pct = Math.round((done / onboardingSteps.length) * 100);
+  return (
+    <>
+      <Card
+        title="Setup progress"
+        action={<span className="font-mono text-[11px] text-primary">{pct}% complete</span>}
+      >
+        <div className="h-2 overflow-hidden rounded-full bg-surface">
+          <div
+            className="h-full rounded-full bg-primary transition-all duration-700"
+            style={{ width: `${pct}%` }}
+          />
+        </div>
+        <p className="mt-3 text-sm text-muted-foreground">
+          {done} of {onboardingSteps.length} steps finished. Finish the rest to go fully live.
+        </p>
+      </Card>
+
+      <Card title="Steps">
+        <ol className="space-y-3">
+          {onboardingSteps.map((s, i) => (
+            <li
+              key={s.title}
+              className="glass-card flex items-start gap-3 rounded-2xl p-4 transition-transform duration-300 hover:-translate-y-0.5"
+            >
+              <span
+                className={`grid size-7 shrink-0 place-items-center rounded-full font-mono text-[11px] ${
+                  s.done ? "bg-primary text-primary-foreground" : "bg-surface text-muted-foreground"
+                }`}
+              >
+                {i + 1}
+              </span>
+              <div className="min-w-0">
+                <p className="text-sm font-medium">{s.title}</p>
+                <p className="mt-1 text-sm text-muted-foreground">{s.desc}</p>
+              </div>
+              <span className="ml-auto font-mono text-[11px] text-muted-foreground">
+                {s.done ? "done" : "pending"}
+              </span>
+            </li>
+          ))}
+        </ol>
+      </Card>
+    </>
+  );
+}
+
+const contacts = [
+  { name: "Rafiq Hasan", number: "+880 1712-345678", tag: "customer", last: "2m", chats: 14 },
+  { name: "Nusrat Jahan", number: "+880 1934-119922", tag: "lead", last: "18m", chats: 5 },
+  { name: "Imran Kabir", number: "+880 1888-772211", tag: "customer", last: "1h", chats: 32 },
+  { name: "Sadia Akter", number: "+880 1611-505050", tag: "vip", last: "3h", chats: 61 },
+  { name: "Tanvir Ahmed", number: "+880 1555-444333", tag: "lead", last: "1d", chats: 2 },
+];
+
+function Contacts() {
+  const [q, setQ] = useState("");
+  const rows = contacts.filter(
+    (c) =>
+      c.name.toLowerCase().includes(q.toLowerCase()) || c.number.includes(q),
+  );
+  return (
+    <>
+      <Card
+        title="Contacts"
+        action={
+          <span className="font-mono text-[11px] text-muted-foreground">
+            {rows.length} of {contacts.length}
+          </span>
+        }
+      >
+        <input
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          placeholder="Search name or number"
+          className="mb-4 w-full rounded-xl border border-input bg-surface px-3.5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-ring"
+        />
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-sm">
+            <thead>
+              <tr className="text-xs text-muted-foreground">
+                <th className="pb-2 font-normal">Name</th>
+                <th className="pb-2 font-normal">Number</th>
+                <th className="pb-2 font-normal">Tag</th>
+                <th className="pb-2 font-normal">Last message</th>
+                <th className="pb-2 text-right font-normal">Chats</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((c) => (
+                <tr key={c.number} className="border-t border-border/60">
+                  <td className="py-3">{c.name}</td>
+                  <td className="py-3 font-mono text-xs text-muted-foreground">{c.number}</td>
+                  <td className="py-3">
+                    <span className="rounded-full bg-surface px-2 py-0.5 font-mono text-[11px] text-primary">
+                      {c.tag}
+                    </span>
+                  </td>
+                  <td className="py-3 text-muted-foreground">{c.last} ago</td>
+                  <td className="py-3 text-right font-mono text-xs">{c.chats}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Card>
+    </>
+  );
+}
+
+const safetyChecks = [
+  { label: "Number warm-up", state: "on", desc: "Slowly raises daily send limits on new sessions." },
+  { label: "Spam word filter", state: "on", desc: "Blocks risky wording before it reaches WhatsApp." },
+  { label: "Rate guard", state: "on", desc: "Caps sends per minute to keep the number healthy." },
+  { label: "Opt-out handling", state: "on", desc: "Stops messages after a customer says STOP." },
+  { label: "Duplicate blocker", state: "off", desc: "Prevents the same text going twice in 60 seconds." },
+];
+
+function SafetyCenter() {
+  return (
+    <>
+      <div className="grid gap-4 sm:grid-cols-3">
+        {[
+          { label: "Account health", value: "94 / 100" },
+          { label: "Blocked risky sends", value: "312" },
+          { label: "Opt-outs respected", value: "48" },
+        ].map((s) => (
+          <div key={s.label} className="glass-card rounded-2xl p-4">
+            <p className="text-xs text-muted-foreground">{s.label}</p>
+            <p className="mt-2 font-display text-2xl font-bold">{s.value}</p>
+          </div>
+        ))}
+      </div>
+
+      <Card title="Protection rules">
+        <ul className="space-y-3">
+          {safetyChecks.map((c) => (
+            <li
+              key={c.label}
+              className="flex items-start gap-3 rounded-2xl border border-border/60 p-4"
+            >
+              <ShieldCheck
+                className={`mt-0.5 size-4 ${c.state === "on" ? "text-primary" : "text-muted-foreground"}`}
+              />
+              <div className="min-w-0">
+                <p className="text-sm font-medium">{c.label}</p>
+                <p className="mt-1 text-sm text-muted-foreground">{c.desc}</p>
+              </div>
+              <span
+                className={`ml-auto font-mono text-[11px] ${
+                  c.state === "on" ? "text-primary" : "text-muted-foreground"
+                }`}
+              >
+                {c.state}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </Card>
+    </>
+  );
+}
+
+function Usage() {
+  const days = [42, 61, 55, 78, 66, 91, 84, 72, 96, 88, 74, 99, 81, 93];
+  return (
+    <>
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {[
+          { label: "Messages this month", value: "48,213", sub: "of 100,000" },
+          { label: "AI replies", value: "19,806", sub: "41% of traffic" },
+          { label: "Webhook calls", value: "62,904", sub: "99.9% delivered" },
+          { label: "Media stored", value: "3.4 GB", sub: "of 20 GB" },
+        ].map((s) => (
+          <div key={s.label} className="glass-card rounded-2xl p-4">
+            <p className="text-xs text-muted-foreground">{s.label}</p>
+            <p className="mt-2 font-display text-2xl font-bold">{s.value}</p>
+            <p className="mt-1 font-mono text-[11px] text-muted-foreground">{s.sub}</p>
+          </div>
+        ))}
+      </div>
+
+      <Card
+        title="Daily usage · last 14 days"
+        action={<span className="font-mono text-[11px] text-muted-foreground">messages / day</span>}
+      >
+        <div className="flex h-44 items-end gap-2">
+          {days.map((v, i) => (
+            <div key={i} className="flex-1">
+              <div
+                className="rounded-t-md bg-primary/70 transition-colors hover:bg-primary"
+                style={{ height: `${v * 1.6}px` }}
+              />
+            </div>
+          ))}
+        </div>
+      </Card>
+    </>
+  );
+}
+
+const invoices = [
+  { id: "INV-2026-0812", date: "12 Aug 2026", amount: "$14.99", status: "paid" },
+  { id: "INV-2026-0712", date: "12 Jul 2026", amount: "$14.99", status: "paid" },
+  { id: "INV-2026-0612", date: "12 Jun 2026", amount: "$4.99", status: "paid" },
+];
+
+function Billing() {
+  return (
+    <>
+      <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr]">
+        <Card
+          title="Current plan"
+          action={<span className="font-mono text-[11px] text-primary">active</span>}
+        >
+          <p className="font-display text-2xl font-bold">Growth</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            $14.99 / month · renews 12 Sep 2026
+          </p>
+          <div className="mt-4 h-2 overflow-hidden rounded-full bg-surface">
+            <div className="h-full w-1/2 rounded-full bg-primary" />
+          </div>
+          <p className="mt-2 font-mono text-[11px] text-muted-foreground">
+            48,213 / 100,000 messages used
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <button className="rounded-xl bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-transform duration-200 hover:scale-[1.02]">
+              Upgrade to Scale
+            </button>
+            <button className="glass-card rounded-xl px-4 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
+              Change payment method
+            </button>
+          </div>
+        </Card>
+
+        <Card title="Payment method">
+          <div className="flex items-center gap-3 rounded-2xl border border-border/60 p-4">
+            <CreditCard className="size-5 text-primary" />
+            <div>
+              <p className="text-sm">Card ending 4242</p>
+              <p className="font-mono text-[11px] text-muted-foreground">expires 04 / 29</p>
+            </div>
+          </div>
+          <p className="mt-3 text-sm text-muted-foreground">
+            You can also pay in BDT with bKash or Nagad. Send the transaction ID and we approve it
+            from the admin panel.
+          </p>
+        </Card>
+      </div>
+
+      <Card title="Invoices">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-sm">
+            <thead>
+              <tr className="text-xs text-muted-foreground">
+                <th className="pb-2 font-normal">Invoice</th>
+                <th className="pb-2 font-normal">Date</th>
+                <th className="pb-2 font-normal">Amount</th>
+                <th className="pb-2 text-right font-normal">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {invoices.map((i) => (
+                <tr key={i.id} className="border-t border-border/60">
+                  <td className="py-3 font-mono text-xs">{i.id}</td>
+                  <td className="py-3 text-muted-foreground">{i.date}</td>
+                  <td className="py-3">{i.amount}</td>
+                  <td className="py-3 text-right font-mono text-[11px] text-primary">{i.status}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Card>
+    </>
+  );
+}
