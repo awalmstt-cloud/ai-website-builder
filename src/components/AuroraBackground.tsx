@@ -42,7 +42,20 @@ export function AuroraBackground() {
             <stop offset="0%" stopColor="oklch(0.97 0.02 240)" stopOpacity="0.32" />
             <stop offset="100%" stopColor="oklch(0.68 0.025 250)" stopOpacity="0" />
           </radialGradient>
+          <radialGradient id="blobT" cx="50%" cy="0%" r="80%">
+            <stop offset="0%" stopColor="oklch(0.97 0.02 240)" stopOpacity="0.4" />
+            <stop offset="55%" stopColor="oklch(0.86 0.03 245)" stopOpacity="0.18" />
+            <stop offset="100%" stopColor="oklch(0.7 0.03 250)" stopOpacity="0" />
+          </radialGradient>
         </defs>
+
+        {/* upper blob bleeding from the top edge */}
+        <g className="drift-slow" style={{ transformOrigin: "50% 0%" }}>
+          <path
+            d="M520 -260C760 -120 900 60 880 220c-20 160-260 240-460 180-200-60-360-260-300-440 60-180 160-160 300-220Z"
+            fill="url(#blobT)"
+          />
+        </g>
 
         <g className="drift-slow" style={{ transformOrigin: "0% 70%" }}>
           <path
@@ -58,10 +71,11 @@ export function AuroraBackground() {
         </g>
 
         {/* hairline arcs — icy white (upper + lower) */}
-        <g fill="none" stroke="oklch(0.96 0.02 240)" strokeOpacity="0.14">
-          <path d="M-100 120C200 320 420 220 760 200s640 80 820 320" />
-          <path d="M-100 900C120 620 300 420 700 380s740 120 900 420" />
-          <path d="M-60 980C200 700 420 520 760 500s660 180 820 460" />
+        <g fill="none" stroke="oklch(0.96 0.02 240)" strokeOpacity="0.2">
+          <path d="M-100 60C220 220 460 140 820 120s520 120 700 300" />
+          <path d="M-100 260C240 420 520 320 860 300s540 140 700 360" />
+          <path d="M-100 900C120 620 300 420 700 380s740 120 900 420" strokeOpacity="0.16" />
+          <path d="M-60 980C200 700 420 520 760 500s660 180 820 460" strokeOpacity="0.16" />
           <path d="M120 1000C300 780 520 640 800 620" strokeOpacity="0.09" />
         </g>
       </svg>
