@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { BookOpen, Copy, Search } from "lucide-react";
 import { SiteNav } from "@/components/SiteNav";
-import { SiteNav } from "@/components/SiteNav";
 
 export const Route = createFileRoute("/docs")({
   head: () => ({
