@@ -136,6 +136,9 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      {/* Signature background — rendered once at the root so it stays
+          viewport-fixed (a transformed ancestor would break position:fixed) */}
+      <AuroraBackground />
       {/* Top progress bar shown while a new page is loading */}
       <div
         aria-hidden
