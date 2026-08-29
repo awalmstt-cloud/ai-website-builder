@@ -15,7 +15,7 @@ import {
   Smartphone,
   Webhook,
 } from "lucide-react";
-import { AuroraBackground } from "@/components/AuroraBackground";
+
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
