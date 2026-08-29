@@ -27,7 +27,6 @@ function RegisterPage() {
   const navigate = useNavigate();
   return (
     <div className="relative min-h-screen">
-      <AuroraBackground />
       <AuthLayout
         title="Start your trial"
         subtitle="Three days free. No card, no per-message fees."
